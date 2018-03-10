@@ -13,8 +13,10 @@ if errorlevel 216 goto 64_bit
 REM Build
 REM -----
 
-tasmx /m /kh32768 /t MAKER40.ASM
+tasmx /m /kh32768 /t MAKER40.ASM, MAKER40.OBJ
+tasmx /m /kh32768 /t /zi MAKER40.ASM, MAKER40D.OBJ
 tlink MAKER40.OBJ
+tlink /v MAKER40D.OBJ
 goto eof
 
 REM Errors
