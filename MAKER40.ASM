@@ -95,10 +95,10 @@ start		proc near
 		mov	bx, ds:2Ch
 		mov	ds, dx
 		assume ds:dseg
-		mov	word_E17C, ax
-		mov	segx, es
+		mov	__version, ax
+		mov	__psp, es
 		mov	word_E176, bx
-		mov	word_E18E, bp
+		mov	word ptr __heaptop+2, bp
 		call	sub_16A
 		mov	ax, word_E176
 		mov	es, ax
@@ -127,11 +127,11 @@ loc_37:
 		mov	di, seg	dseg
 		mov	es, di
 		assume es:dseg
-		mov	di, es:word_E33A
+		mov	di, es:__stklen
 		cmp	di, 200h
 		jnb	short loc_75
 		mov	di, 200h
-		mov	es:word_E33A, di
+		mov	es:__stklen, di
 
 loc_75:
 		mov	cl, 4
@@ -148,8 +148,8 @@ loc_81:
 		mov	bx, di
 		add	bx, dx
 		mov	word_E186, bx
-		mov	word_E18A, bx
-		mov	ax, segx
+		mov	word ptr __brklvl+2, bx
+		mov	ax, __psp
 		sub	bx, ax
 		mov	es, ax
 		assume es:nothing
@@ -168,7 +168,7 @@ loc_81:
 		mov	ax, seg	dseg
 		mov	es, ax
 		assume es:dseg
-		mov	es:word_E33A, di
+		mov	es:__stklen, di
 		xor	ax, ax
 		mov	es, cs:DGROUP@
 		assume es:nothing
@@ -179,10 +179,10 @@ loc_81:
 		rep stosb
 		cmp	__nfile, 14h
 		jbe	short loc_10C
-		cmp	byte ptr word_E17C, 3
+		cmp	byte ptr __version, 3
 		jb	short loc_10C
 		ja	short loc_D5
-		cmp	byte ptr word_E17C+1, 1Eh
+		cmp	byte ptr __version+1, 1Eh
 		jb	short loc_10C
 
 loc_D5:
@@ -202,7 +202,7 @@ loc_D5:
 					; BX = number of 16-byte paragraphs desired
 		jb	short loc_109
 		inc	ax
-		mov	word_E18E, ax
+		mov	word ptr __heaptop+2, ax
 		dec	ax
 		mov	es, ax
 		assume es:nothing
@@ -4230,6 +4230,7 @@ sub_1D9C	endp
 ; Attributes: bp-based frame
 
 ; int __cdecl main(int argc, const char	**argv,	const char **envp)
+public _main
 _main		proc near
 
 @@path		= dword	ptr -8
@@ -4435,8 +4436,8 @@ loc_20BB:
 loc_20CF:
 		cmp	word_F510, 0
 		jz	short loc_20F3
-		mov	ax, word_E18E
-		sub	ax, segx
+		mov	ax, word ptr __heaptop+2
+		sub	ax, __psp
 		xor	dx, dx
 		mov	cl, 4
 		call	near ptr N_LXLSH@
@@ -4579,7 +4580,7 @@ var_4		= dword	ptr -4
 ; ---------------------------------------------------------------------------
 
 loc_21C6:
-		cmp	byte ptr word_E17C, 3
+		cmp	byte ptr __version, 3
 		jb	short locret_2224
 		push	0
 		push	0		; __int32
@@ -5016,7 +5017,7 @@ var_4		= dword	ptr -4
 		push	ds
 		push	offset format	; "Implicit Rules:\n"
 		push	ds
-		push	offset stream	; stream
+		push	offset _stdout	; stream
 		call	_fprintf
 		add	sp, 8
 		mov	dx, word_10760
@@ -5051,7 +5052,7 @@ loc_24B1:
 		push	ds
 		push	offset a_S_SCommands ; "    .%s.%s:\n	     commands:	  "
 		push	ds
-		push	offset stream	; stream
+		push	offset _stdout	; stream
 		call	_fprintf
 		add	sp, 10h
 		les	bx, [bp+var_C]
@@ -5064,7 +5065,7 @@ loc_24B1:
 		push	ds
 		push	offset aS_3	; "%s\n"
 		push	ds
-		push	offset stream	; stream
+		push	offset _stdout	; stream
 		call	_fprintf
 		add	sp, 0Ch
 		les	bx, [bp+var_C]
@@ -5081,7 +5082,7 @@ loc_250E:
 		push	ds
 		push	offset aS_4	; "			%s\n"
 		push	ds
-		push	offset stream	; stream
+		push	offset _stdout	; stream
 		call	_fprintf
 		add	sp, 0Ch
 		les	bx, [bp+var_10]
@@ -5127,7 +5128,7 @@ loc_2577:
 		push	ds
 		push	offset aTargets	; "\nTargets:\n"
 		push	ds
-		push	offset stream	; stream
+		push	offset _stdout	; stream
 		call	_fprintf
 		add	sp, 8
 		mov	dx, word_10764
@@ -5173,7 +5174,7 @@ loc_25C4:
 		push	ds
 		push	offset aSFlagsSDepende ; "    %s:\n	   flags:	%s\n	   "...
 		push	ds
-		push	offset stream	; stream
+		push	offset _stdout	; stream
 		call	_fprintf
 		add	sp, 10h
 		les	bx, [bp+var_8]
@@ -5197,7 +5198,7 @@ loc_25EB:
 		push	ds
 		push	offset aCSC	; "%c%s%c"
 		push	ds
-		push	offset stream	; stream
+		push	offset _stdout	; stream
 		call	_fprintf
 		add	sp, 10h
 
@@ -5228,7 +5229,7 @@ loc_2636:
 		push	ds
 		push	offset aSS	; "%s%s"
 		push	ds
-		push	offset stream	; stream
+		push	offset _stdout	; stream
 		call	_fprintf
 		add	sp, 10h
 		les	bx, [bp+var_C]
@@ -5261,7 +5262,7 @@ loc_2684:
 		push	ds
 		push	offset aCommandsC ; "\n	       commands:   %c"
 		push	ds
-		push	offset stream	; stream
+		push	offset _stdout	; stream
 		call	_fprintf
 		add	sp, 0Ah
 		les	bx, [bp+var_8]
@@ -5274,7 +5275,7 @@ loc_2684:
 		push	ds
 		push	offset aS_3	; "%s\n"
 		push	ds
-		push	offset stream	; stream
+		push	offset _stdout	; stream
 		call	_fprintf
 		add	sp, 0Ch
 		les	bx, [bp+var_8]
@@ -5291,7 +5292,7 @@ loc_26CA:
 		push	ds
 		push	offset aS_4	; "			%s\n"
 		push	ds
-		push	offset stream	; stream
+		push	offset _stdout	; stream
 		call	_fprintf
 		add	sp, 0Ch
 		les	bx, [bp+var_10]
@@ -5323,7 +5324,7 @@ loc_2717:
 		push	ds
 		push	offset asc_E3A8	; "\n\n"
 		push	ds
-		push	offset stream	; stream
+		push	offset _stdout	; stream
 		call	_fprintf
 		add	sp, 8
 		pop	si
@@ -6700,7 +6701,7 @@ var_4		= dword	ptr -4
 		push	ds
 		push	offset aMacros	; "\nMacros:\n"
 		push	ds
-		push	offset stream	; stream
+		push	offset _stdout	; stream
 		call	_fprintf
 		add	sp, 8
 		xor	si, si
@@ -6740,7 +6741,7 @@ loc_3287:
 		push	ds
 		push	offset a15sS	; "%15s	= %s\n"
 		push	ds
-		push	offset stream	; stream
+		push	offset _stdout	; stream
 		call	_fprintf
 		add	sp, 10h
 		les	bx, [bp+var_4]
@@ -8543,7 +8544,7 @@ arg_4		= word ptr  8
 		mov	si, [bp+arg_0]
 		mov	[bp+var_12], ds
 		mov	[bp+var_14], 2DAh
-		cmp	sp, word_E33A
+		cmp	sp, __stklen
 		ja	short loc_3FB1
 		cmp	sp, 200h
 		jnb	short loc_3FBB
@@ -19123,7 +19124,7 @@ var_5		= byte ptr -5
 		add	sp, 4
 
 loc_8B1A:
-		cmp	byte ptr word_E17C, 3
+		cmp	byte ptr __version, 3
 		jnb	short loc_8B3E
 		push	ds
 		push	offset aMake_exe ; "MAKE.EXE"
@@ -19141,7 +19142,7 @@ loc_8B1A:
 ; ---------------------------------------------------------------------------
 
 loc_8B3E:
-		les	bx, dword_FFCC
+		les	bx, __argv
 		mov	dx, es:[bx+2]
 		mov	ax, es:[bx]
 		mov	word ptr [bp+@@path+2], dx
@@ -20241,7 +20242,7 @@ arg_2		= word ptr  6
 		call	__close
 		pop	cx
 		lea	ax, [si+18h]
-		mov	es, segx
+		mov	es, __psp
 		mov	bx, ax
 		mov	al, byte ptr [bp+arg_2]
 		mov	es:[bx], al
@@ -20292,7 +20293,7 @@ loc_934A:
 		les	bx, [bp+@@path]
 		cmp	byte ptr es:[bx], 0
 		jz	short loc_93CC
-		mov	es, segx
+		mov	es, __psp
 		mov	ax, [bp+arg_2]
 		add	ax, 18h
 		mov	bx, ax
@@ -20711,7 +20712,7 @@ arg_A		= dword	ptr  0Eh
 		cld
 		push	ds
 		mov	ah, 1Ah
-		mov	ds, segx
+		mov	ds, __psp
 		mov	dx, 80h	; '€'
 		int	21h		; DOS -	SET DISK TRANSFER AREA ADDRESS
 					; DS:DX	-> disk	transfer buffer
@@ -20816,7 +20817,7 @@ loc_987A:
 		mov	cs:word_956D, ax
 		mov	cs:word_97A3, ss
 		mov	cs:word_97A1, sp
-		mov	ax, segx
+		mov	ax, __psp
 		mov	cs:word_95D5, ax
 		add	ax, 6
 		mov	cs:word_973C, ax
@@ -20839,7 +20840,7 @@ loc_98AF:
 
 loc_98B9:
 		mov	ax, es:1
-		cmp	ax, segx
+		cmp	ax, __psp
 		jz	short loc_98D1
 		cmp	byte ptr es:0, 5Ah ; 'Z'
 		jnz	short loc_98AF
@@ -20850,7 +20851,7 @@ loc_98B9:
 loc_98D1:
 		mov	ax, es
 		inc	ax
-		cmp	ax, segx
+		cmp	ax, __psp
 		jnz	short loc_98AF
 		mov	ax, es:3
 		mov	cs:word_957D, ax
@@ -20866,8 +20867,8 @@ loc_98D1:
 		call	sub_97A9
 		mov	cx, dx
 		mov	bx, ax
-		push	word_E18A
-		push	word_E188
+		push	word ptr __brklvl+2
+		push	word ptr __brklvl
 		call	sub_97A9
 		sub	ax, bx
 		sbb	dx, cx
@@ -20936,7 +20937,7 @@ loc_993E:
 		pop	ds
 		assume ds:dseg
 		mov	cs:word_973E, ds
-		mov	es, segx
+		mov	es, __psp
 		assume es:nothing
 		mov	ax, es:2Ch
 		mov	cs:word_956F, ax
@@ -21063,7 +21064,7 @@ loc_9A3B:
 		mov	ds, cs:word_973E
 
 loc_9ABF:
-		mov	word_E17E, ax
+		mov	_errno, ax
 		mov	ah, 3Eh	; '>'
 		mov	bx, cs:word_956D
 		int	21h		; DOS -	2+ - CLOSE A FILE WITH HANDLE
@@ -21078,7 +21079,7 @@ loc_9ABF:
 					; DS:DX	-> ASCIZ pathname of file to delete (no	wildcards allowed)
 		pop	ds
 		assume ds:dseg
-		cmp	word_E17E, 0
+		cmp	_errno, 0
 		jz	short loc_9AE4
 		mov	ax, 0FFFFh
 		jmp	short loc_9AE6
@@ -21159,6 +21160,7 @@ ___InitExceptBlock:
 
 ; Attributes: library function
 
+public __ExceptInit
 __ExceptInit	proc near
 		push	si
 		push	di
@@ -22275,19 +22277,19 @@ loc_A001:
 		push	ax
 		call	_setvbuf
 		add	sp, 0Ch
-		mov	al, stream.fd
+		mov	al, _stdout.fd
 		cbw
 		push	ax
 		call	_isatty
 		pop	cx
 		or	ax, ax
 		jnz	short loc_A024
-		and	stream.flags, 0FDFFh
+		and	_stdout.flags, 0FDFFh
 
 loc_A024:
 		mov	ax, 200h
 		push	ax
-		test	byte ptr stream.flags+1, 2
+		test	byte ptr _stdout.flags+1, 2
 		jz	short loc_A034
 		mov	ax, 2
 		jmp	short loc_A036
@@ -22331,7 +22333,7 @@ __freeio:
 		mov	stru_F67C.bsize, 0
 
 loc_A075:
-		test	byte ptr stream.flags, 4
+		test	byte ptr _stdout.flags, 4
 		jz	short loc_A09F
 		push	ds
 		mov	ax, 1590h
@@ -22339,13 +22341,13 @@ loc_A075:
 		call	_fflush
 		pop	cx
 		pop	cx
-		push	word ptr stream.buffer+2
-		push	word ptr stream.buffer
+		push	word ptr _stdout.buffer+2
+		push	word ptr _stdout.buffer
 		call	_farfree
 		pop	cx
 		pop	cx
-		mov	stream.level, 0
-		mov	stream.bsize, 0
+		mov	_stdout.level, 0
+		mov	_stdout.bsize, 0
 
 loc_A09F:
 		test	byte ptr stru_F6CC.flags, 4
@@ -22444,7 +22446,7 @@ loc_A133:
 		mov	word_FACE, 0FFFFh
 
 loc_A141:
-		mov	word_E17E, dx
+		mov	_errno, dx
 		mov	ax, 0FFFFh
 		pop	di
 		pop	si
@@ -24550,12 +24552,12 @@ var_2		= word ptr -2
 		sub	sp, 4
 		push	si
 		push	di
-		mov	ax, word_E17E
+		mov	ax, _errno
 		cmp	ax, word_FC52
 		jge	short loc_ADC0
-		cmp	word_E17E, 0
+		cmp	_errno, 0
 		jl	short loc_ADC0
-		mov	bx, word_E17E
+		mov	bx, _errno
 		mov	cl, 2
 		shl	bx, cl
 		mov	dx, [bx+1A94h]
@@ -25736,7 +25738,7 @@ loc_B5AB:
 ; ---------------------------------------------------------------------------
 
 loc_B5AF:
-		mov	word_E17E, 5
+		mov	_errno, 5
 		mov	ax, 0FFFFh
 
 loc_B5B8:
@@ -26307,7 +26309,7 @@ loc_B803:
 		pop	cx
 		cmp	ax, [bp+@@size]
 		jb	short loc_B83C
-		mov	word_E17E, 22h ; '"'
+		mov	_errno, 22h ; '"'
 		jmp	short loc_B85B
 ; ---------------------------------------------------------------------------
 
@@ -26322,7 +26324,7 @@ loc_B83C:
 		mov	word ptr [bp+@@dest], ax
 		or	ax, dx
 		jnz	short loc_B861
-		mov	word_E17E, 8
+		mov	_errno, 8
 
 loc_B85B:
 		xor	dx, dx
@@ -26439,7 +26441,7 @@ arg_6		= word ptr  0Ah
 		or	[bp+oflags], ax
 
 loc_B8CB:
-		mov	ax, word_E17E
+		mov	ax, _errno
 		mov	[bp+var_6], ax
 		xor	ax, ax
 		push	ax		; func
@@ -26458,7 +26460,7 @@ loc_B8CB:
 
 loc_B8F6:
 		mov	ax, [bp+var_6]
-		mov	word_E17E, ax
+		mov	_errno, ax
 		test	byte ptr [bp+oflags+1],	1
 		jz	short loc_B97B
 		mov	ax, word_FACC
@@ -28405,7 +28407,7 @@ arg_2		= word ptr  6
 		mov	ax, [bp+arg_2]
 		inc	ax
 		mov	[bp+newsize], ax
-		mov	ax, segx
+		mov	ax, __psp
 		sub	[bp+newsize], ax
 		mov	ax, [bp+newsize]
 		add	ax, 3Fh	; '?'
@@ -28416,18 +28418,18 @@ arg_2		= word ptr  6
 		jz	short loc_C3CC
 		mov	cl, 6
 		shl	[bp+newsize], cl
-		mov	dx, word_E18E
+		mov	dx, word ptr __heaptop+2
 		mov	ax, [bp+newsize]
-		add	ax, segx
+		add	ax, __psp
 		cmp	ax, dx
 		jbe	short loc_C3AF
 		mov	ax, dx
-		sub	ax, segx
+		sub	ax, __psp
 		mov	[bp+newsize], ax
 
 loc_C3AF:
 		push	[bp+newsize]	; newsize
-		push	segx		; segx
+		push	__psp		; __psp
 		call	_setblock
 		pop	cx
 		pop	cx
@@ -28442,17 +28444,17 @@ loc_C3AF:
 loc_C3CC:
 		mov	dx, [bp+arg_2]
 		mov	ax, [bp+arg_0]
-		mov	word_E18A, dx
-		mov	word_E188, ax
+		mov	word ptr __brklvl+2, dx
+		mov	word ptr __brklvl, ax
 		mov	ax, 1
 		jmp	short loc_C3EE
 ; ---------------------------------------------------------------------------
 
 loc_C3DE:
-		mov	ax, segx
+		mov	ax, __psp
 		add	ax, dx
-		mov	word_E18E, ax
-		mov	word_E18C, 0
+		mov	word ptr __heaptop+2, ax
+		mov	word ptr __heaptop, 0
 		xor	ax, ax
 
 loc_C3EE:
@@ -28483,8 +28485,8 @@ arg_2		= word ptr  6
 		mov	ax, [bp+arg_0]
 		call	N_PCMP@
 		jb	short loc_C42E
-		mov	cx, word_E18E
-		mov	bx, word_E18C
+		mov	cx, word ptr __heaptop+2
+		mov	bx, word ptr __heaptop
 		mov	dx, [bp+arg_2]
 		mov	ax, [bp+arg_0]
 		call	N_PCMP@
@@ -28529,11 +28531,11 @@ arg_2		= word ptr  6
 		sub	sp, 8
 		push	si
 		push	di
-		mov	ax, word_E18A
+		mov	ax, word ptr __brklvl+2
 		xor	dx, dx
 		mov	cl, 4
 		call	near ptr N_LXLSH@
-		add	ax, word_E188
+		add	ax, word ptr __brklvl
 		adc	dx, 0
 		add	ax, [bp+arg_0]
 		adc	dx, [bp+arg_2]
@@ -28544,8 +28546,8 @@ arg_2		= word ptr  6
 		ja	short loc_C4B4
 
 loc_C464:
-		mov	dx, word_E18A
-		mov	ax, word_E188
+		mov	dx, word ptr __brklvl+2
+		mov	ax, word ptr __brklvl
 		mov	cx, [bp+arg_2]
 		mov	bx, [bp+arg_0]
 		call	near ptr N_PADD@
@@ -28555,14 +28557,14 @@ loc_C464:
 		mov	bx, word_E184
 		call	N_PCMP@
 		jb	short loc_C4B4
-		mov	cx, word_E18E
-		mov	bx, word_E18C
+		mov	cx, word ptr __heaptop+2
+		mov	bx, word ptr __heaptop
 		mov	dx, [bp+var_2]
 		mov	ax, [bp+var_4]
 		call	N_PCMP@
 		ja	short loc_C4B4
-		mov	dx, word_E18A
-		mov	ax, word_E188
+		mov	dx, word ptr __brklvl+2
+		mov	ax, word ptr __brklvl
 		mov	[bp+var_6], dx
 		mov	[bp+var_8], ax
 		push	[bp+var_2]
@@ -28607,10 +28609,10 @@ var_2		= word ptr -2
 		push	di
 		mov	[bp+var_2], 0
 		mov	[bp+var_4], 0
-		mov	dx, word_E18E
-		mov	ax, word_E18C
-		mov	cx, word_E18A
-		mov	bx, word_E188
+		mov	dx, word ptr __heaptop+2
+		mov	ax, word ptr __heaptop
+		mov	cx, word ptr __brklvl+2
+		mov	bx, word ptr __brklvl
 		call	near ptr N_PSBP@
 		mov	[bp+var_2], dx
 		mov	[bp+var_4], ax
@@ -29873,7 +29875,7 @@ arg_A		= word ptr  0Eh
 ; ---------------------------------------------------------------------------
 
 loc_CCCF:
-		mov	es, segx
+		mov	es, __psp
 		mov	cs:word_CBD3, es
 		mov	ax, es:2Ch
 		mov	[bp+var_C], ax
@@ -29922,7 +29924,7 @@ loc_CD10:
 		int	21h		; DOS -	2+ - ADJUST MEMORY BLOCK SIZE (SETBLOCK)
 					; ES = segment address of block	to change
 					; BX = new size	in paragraphs
-		cmp	byte ptr word_E17C, 3
+		cmp	byte ptr __version, 3
 		jnb	short loc_CD2F
 		sub	bx, 280h
 
@@ -30178,7 +30180,7 @@ unknown_libname_2:			; BCC v4.x/5.x DOS runtime
 		mov	word_FFD6, si
 		mov	word_FFD8, di
 		cld
-		mov	es, segx
+		mov	es, __psp
 		mov	si, 80h	; '€'
 		xor	ah, ah
 		lods	byte ptr es:[si]
@@ -30190,7 +30192,7 @@ unknown_libname_2:			; BCC v4.x/5.x DOS runtime
 		inc	si
 		inc	si
 		mov	cx, 1
-		cmp	byte ptr word_E17C, 3
+		cmp	byte ptr __version, 3
 		jb	short loc_CF3A
 		mov	es, word_E176
 		mov	di, si
@@ -30328,8 +30330,8 @@ loc_CFBC:
 		sub	bp, bx
 		jb	short loc_CFB9
 		mov	sp, bp
-		mov	word ptr dword_FFCC, bp
-		mov	word ptr dword_FFCC+2, ss
+		mov	word ptr __argv, bp
+		mov	word ptr __argv+2, ss
 
 loc_CFDF:
 		jcxz	short loc_CFF2
@@ -30354,9 +30356,9 @@ loc_CFF2:
 		push	word_FFD2
 		mov	ax, __argc
 		mov	argc, ax
-		mov	ax, word ptr dword_FFCC+2
+		mov	ax, word ptr __argv+2
 		mov	word_E16E, ax
-		mov	ax, word ptr dword_FFCC
+		mov	ax, word ptr __argv
 		mov	argv, ax
 		jmp	word_FFD0
 ; ---------------------------------------------------------------------------
@@ -30753,7 +30755,7 @@ loc_D282:
 		mov	dx, ax
 		cmp	ax, 0FFFFh
 		jnz	short loc_D29C
-		mov	word_E17E, 13h
+		mov	_errno, 13h
 		mov	ax, 0FFFFh
 		jmp	loc_D364
 ; ---------------------------------------------------------------------------
@@ -31366,7 +31368,7 @@ loc_D6AE:
 		jnz	short loc_D6D7
 
 loc_D6CE:
-		mov	word_E17E, 2
+		mov	_errno, 2
 		jmp	loc_D789
 ; ---------------------------------------------------------------------------
 
@@ -31402,7 +31404,7 @@ loc_D704:
 		mov	ax, word ptr [bp+block]
 		or	ax, word ptr [bp+block+2]
 		jnz	short loc_D71D
-		mov	word_E17E, 8
+		mov	_errno, 8
 		jmp	short loc_D789
 ; ---------------------------------------------------------------------------
 
@@ -31414,7 +31416,7 @@ loc_D71D:
 		pop	cx
 		cmp	ax, 7Fh	; ''
 		jbe	short loc_D735
-		mov	word_E17E, 14h
+		mov	_errno, 14h
 		jmp	short loc_D789
 ; ---------------------------------------------------------------------------
 
@@ -31452,7 +31454,7 @@ loc_D764:
 		mov	[bp+var_C], ax
 		or	ax, dx
 		jnz	short loc_D78E
-		mov	word_E17E, 8
+		mov	_errno, 8
 		push	word ptr [bp+block+2]
 		push	word ptr [bp+block] ; block
 		call	_farfree
@@ -31584,7 +31586,7 @@ loc_D825:
 		pop	ds
 		push	ds
 		push	es
-		mov	es, segx
+		mov	es, __psp
 		lds	si, [bp+arg_0]
 		mov	di, 80h	; '€'
 		mov	cx, 7Fh	; ''
@@ -31605,7 +31607,7 @@ loc_D84E:
 		push	bp
 		push	ds
 		lea	bx, [bp+var_E]
-		mov	ds, segx
+		mov	ds, __psp
 		mov	dx, 80h	; '€'
 		mov	ax, 4B00h
 		push	word ptr ss:2Eh
@@ -31704,7 +31706,7 @@ loc_D8E9:
 ; ---------------------------------------------------------------------------
 
 loc_D8F1:
-		mov	word_E17E, 13h
+		mov	_errno, 13h
 		mov	ax, 0FFFFh
 
 loc_D8FA:
@@ -32872,18 +32874,15 @@ word_E172	dw 0
 word_E174	dw 0
 word_E176	dw 0
 word_E178	dw 0
-; unsigned int segx
-segx		dw 0
-word_E17C	dw 0
-word_E17E	dw 0
+__psp		dw 0
+__version	dw 0
+_errno		dw 0
 		dw 0FFFFh
 		dw 6116h
 word_E184	dw 0
 word_E186	dw 0
-word_E188	dw 0
-word_E18A	dw 0
-word_E18C	dw 0
-word_E18E	dw 0
+__brklvl	dd 0
+__heaptop	dd 0
 ; char dest
 dest		db 0
 		db 70 dup(0)
@@ -32950,7 +32949,8 @@ off_E332	dd aMakefile	; "makefile"
 word_E336	dw 0
 		db    0
 		db  20h
-word_E33A	dw 2400h
+public __stklen
+__stklen	dw 2400h
 ; char a__make__[]
 a__make__	db '__MAKE__',0
 ; char a__msdos__[]
@@ -33718,8 +33718,7 @@ unk_F678	db    0
 		db    0
 		db    0
 stru_F67C	FILE <0, 209h, 0, 0, 0,	0, 0, 0, 157Ch>
-; FILE stream
-stream		FILE <0, 20Ah, 1, 0, 0,	0, 0, 0, 1590h>
+_stdout  	FILE <0, 20Ah, 1, 0, 0,	0, 0, 0, 1590h>
 stru_F6A4	FILE <0, 202h, 2, 0, 0,	0, 0, 0, 15A4h>
 		FILE <0, 243h, 3, 0, 0,	0, 0, 0, 15B8h>
 stru_F6CC	FILE <0, 242h, 4, 0, 0,	0, 0, 0, 15CCh>
@@ -34080,7 +34079,7 @@ aAbnormalProgra	db 'Abnormal program termination',0Dh,0Ah,0
 		db '\',0
 ; int _argc
 __argc		dw 0
-dword_FFCC	dd 0
+__argv	dd 0
 word_FFD0	dw 0
 word_FFD2	dw 0
 word_FFD4	dw 0
