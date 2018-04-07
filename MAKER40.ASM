@@ -998,7 +998,7 @@ loc_6C2:
 		push	word ptr [bp+@@src] ; src
 		call	sub_6C4D
 		push	ds
-		push	offset byte_1285A ; s
+		push	offset DGROUP:byte_1285A ; s
 		call	_strlen
 		add	sp, 4
 		mov	si, ax
@@ -1012,7 +1012,7 @@ loc_6C2:
 loc_6F9:
 		push	si		; len
 		push	ds
-		push	offset byte_1285A ; buf
+		push	offset DGROUP:byte_1285A ; buf
 		push	di		; handle
 		call	__write
 		add	sp, 8
@@ -1326,7 +1326,7 @@ loc_934:
 		call	_strcat
 		add	sp, 8
 		push	ds
-		push	offset byte_102F4 ; src
+		push	offset DGROUP:byte_102F4 ; src
 		push	ds
 		push	offset dest	; dest
 		call	_strcat
@@ -1454,12 +1454,12 @@ loc_A70:
 		push	dx
 		push	ax		; src
 		push	ds
-		push	offset byte_102F4 ; dest
+		push	offset DGROUP:byte_102F4 ; dest
 		call	_strcpy
 		add	sp, 8
 		push	0		; attribute
 		push	ds
-		push	offset byte_102F4 ; path
+		push	offset DGROUP:byte_102F4 ; path
 		call	__creat
 		add	sp, 6
 		mov	word_E29C, ax
@@ -1583,7 +1583,7 @@ loc_B65:
 		call	_strcat
 		add	sp, 8
 		push	ds
-		push	offset byte_102F4 ; src
+		push	offset DGROUP:byte_102F4 ; src
 		push	ds
 		push	offset dest	; dest
 		call	_strcat
@@ -1661,7 +1661,7 @@ loc_C31:
 		cmp	ax, si
 		jz	short loc_C54
 		push	ds
-		push	offset byte_102F4
+		push	offset DGROUP:byte_102F4
 		push	ds
 		push	offset aWriteErrorOnFi ; "Write	error on file %s.\n"
 		call	sub_8D1A
@@ -1678,7 +1678,7 @@ loc_C54:
 		cmp	ax, 1
 		jz	short loc_C77
 		push	ds
-		push	offset byte_102F4
+		push	offset DGROUP:byte_102F4
 		push	ds
 		push	offset aWriteErrorOnFi ; "Write	error on file %s.\n"
 		call	sub_8D1A
@@ -1925,7 +1925,7 @@ loc_DEA:
 		call	sub_6C4D
 		mov	[bp+var_E], 0
 		push	ds
-		push	offset byte_1285A
+		push	offset DGROUP:byte_1285A
 		push	ss
 		lea	ax, [bp+var_C]
 		push	ax
@@ -2027,25 +2027,25 @@ loc_EE2:
 		push	word ptr [bp+block+2]
 		push	word ptr [bp+block] ; src
 		push	ds
-		push	offset byte_1285A ; dest
+		push	offset DGROUP:byte_1285A ; dest
 		call	_strcpy
 		add	sp, 8
 		push	[bp+var_18]
 		push	[bp+var_1A]	; src
 		push	ds
-		push	offset byte_1285A ; dest
+		push	offset DGROUP:byte_1285A ; dest
 		call	_strcat
 		add	sp, 8
 		push	word ptr [bp+var_16+2]
 		push	word ptr [bp+var_16] ; src
 		push	ds
-		push	offset byte_1285A ; dest
+		push	offset DGROUP:byte_1285A ; dest
 		call	_strcat
 		add	sp, 8
 
 loc_F1A:
 		push	ds
-		push	offset byte_1285A ; s2
+		push	offset DGROUP:byte_1285A ; s2
 		push	ss
 		lea	ax, [bp+var_C]
 		push	ax		; __int32
@@ -2055,7 +2055,7 @@ loc_F1A:
 		cmp	ax, 0FFFFh
 		jnz	short loc_F3F
 		push	ds
-		push	offset byte_1285A
+		push	offset DGROUP:byte_1285A
 		push	[bp+var_6]
 		call	sub_7D8
 		mov	si, ax
@@ -2186,7 +2186,7 @@ loc_103A:
 		push	word ptr [bp+@@s+2]
 		push	word ptr [bp+@@s]	; src
 		push	ds
-		push	offset byte_1285A ; dest
+		push	offset DGROUP:byte_1285A ; dest
 		call	_memmove
 		add	sp, 0Ah
 
@@ -2268,7 +2268,7 @@ arg_4		= dword	ptr  8
 		lea	ax, [bp+@@s2]
 		push	ax		; src
 		push	ds
-		push	offset byte_1385A ; dest
+		push	offset DGROUP:byte_1385A ; dest
 		call	_strcpy
 		add	sp, 8
 		les	bx, [bp+arg_4]
@@ -2319,7 +2319,7 @@ loc_1109:
 		lea	ax, [bp+@@s2]
 		push	ax		; s2
 		push	ds
-		push	offset byte_1385A ; s1
+		push	offset DGROUP:byte_1385A ; s1
 		call	_stricmp
 		add	sp, 8
 		or	ax, ax
@@ -2329,7 +2329,7 @@ loc_1109:
 		push	word ptr es:[bx+2]
 		push	word ptr es:[bx] ; src
 		push	ds
-		push	offset byte_1385A ; dest
+		push	offset DGROUP:byte_1385A ; dest
 		call	_strcpy
 		add	sp, 8
 		mov	dx, ds
@@ -2480,7 +2480,7 @@ loc_1295:
 		push	word ptr [bp+@@src+2]
 		push	word ptr [bp+@@src] ; src
 		push	ds
-		push	offset byte_1385A ; dest
+		push	offset DGROUP:byte_1385A ; dest
 		call	_strcpy
 		add	sp, 8
 		jmp	short loc_131E
@@ -2536,7 +2536,7 @@ loc_12E9:
 
 loc_12FC:
 		push	ds
-		push	offset byte_1385A ; dest
+		push	offset DGROUP:byte_1385A ; dest
 		call	sub_9247
 		add	sp, 14h
 		les	bx, [bp+arg_0]
@@ -2544,7 +2544,7 @@ loc_12FC:
 		push	word ptr es:[bx+2]
 		push	word ptr es:[bx] ; src
 		push	ds
-		push	offset byte_1385A ; dest
+		push	offset DGROUP:byte_1385A ; dest
 		call	_strcat
 		add	sp, 8
 
@@ -2908,7 +2908,7 @@ loc_156C:
 		push	word_10242
 		push	off_10240	; src
 		push	ds
-		push	offset byte_1285A ; dest
+		push	offset DGROUP:byte_1285A ; dest
 		call	_memmove
 		add	sp, 0Ah
 
@@ -3097,7 +3097,7 @@ loc_16BD:
 		push	word ptr [bp+@@src+2]
 		push	word ptr [bp+@@src] ; src
 		push	ds
-		push	offset byte_12708 ; dest
+		push	offset DGROUP:byte_12708 ; dest
 		call	_memmove
 		add	sp, 0Ah
 		mov	bx, word ptr [bp+var_4]
@@ -3124,7 +3124,7 @@ loc_1701:
 
 loc_170D:
 		push	ds
-		push	offset byte_12708 ; s
+		push	offset DGROUP:byte_12708 ; s
 		call	_strlen
 		add	sp, 4
 		add	ax, 4607h
@@ -3141,7 +3141,7 @@ loc_170D:
 		jz	short loc_1748
 		push	si		; int
 		push	ds
-		push	offset byte_12708 ; dest
+		push	offset DGROUP:byte_12708 ; dest
 		push	ds
 		push	offset asc_E2AD	; "\\"
 		call	sub_5DA2
@@ -3149,7 +3149,7 @@ loc_170D:
 loc_1748:
 		push	si		; int
 		push	ds
-		push	offset byte_12708 ; dest
+		push	offset DGROUP:byte_12708 ; dest
 		push	[bp+arg_8]
 		push	[bp+arg_6]	; src
 		call	sub_5DA2
@@ -3157,7 +3157,7 @@ loc_1748:
 		jnz	short loc_176D
 		push	0		; amode
 		push	ds
-		push	offset byte_12708 ; path
+		push	offset DGROUP:byte_12708 ; path
 		call	_access
 		add	sp, 6
 		cmp	ax, 0FFFFh
@@ -3214,13 +3214,13 @@ arg_0		= dword	ptr  4
 		mov	[bp+var_2], dx
 		mov	[bp+var_4], ax
 		push	ds
-		push	offset byte_10292 ; __int32
+		push	offset DGROUP:byte_10292 ; __int32
 		push	ds
-		push	offset byte_10289 ; __int32
+		push	offset DGROUP:byte_10289 ; __int32
 		push	ds
-		push	offset byte_10247 ; __int32
+		push	offset DGROUP:byte_10247 ; __int32
 		push	ds
-		push	offset byte_10244 ; __int32
+		push	offset DGROUP:byte_10244 ; __int32
 		push	dx
 		push	ax		; src
 		call	sub_90B3
@@ -3322,15 +3322,15 @@ loc_1892:
 
 loc_18A2:
 		push	ds		; int
-		push	offset byte_10292 ; int
+		push	offset DGROUP:byte_10292 ; int
 		push	ds		; int
-		push	offset byte_10289 ; int
+		push	offset DGROUP:byte_10289 ; int
 		push	word ptr [bp+@@src+2]
 		push	word ptr [bp+@@src] ; src
 		push	ds
-		push	offset byte_10244 ; __int32
+		push	offset DGROUP:byte_10244 ; __int32
 		push	ds
-		push	offset byte_10297 ; dest
+		push	offset DGROUP:byte_10297 ; dest
 		call	sub_9247
 		add	sp, 14h
 		les	bx, [bp+arg_0]
@@ -3356,7 +3356,7 @@ loc_18EB:
 		or	ax, [bp+var_12]
 		jz	short loc_190B
 		push	ds
-		push	offset byte_10297 ; s
+		push	offset DGROUP:byte_10297 ; s
 		call	sub_894C
 		les	bx, [bp+arg_0]
 		mov	es:[bx+2], dx
@@ -3662,7 +3662,7 @@ loc_1B44:
 		push	dx
 		push	ax		; src
 		push	ds
-		push	offset byte_1385A ; dest
+		push	offset DGROUP:byte_1385A ; dest
 		call	_strcpy
 		add	sp, 8
 		cmp	word_E29E, 0
@@ -3889,7 +3889,7 @@ arg_0		= word ptr  4
 		add	sp, 8
 		push	400h		; len
 		push	ds
-		push	offset byte_10352 ; buf
+		push	offset DGROUP:byte_10352 ; buf
 		push	handle		; handle
 		call	__read
 		add	sp, 8
@@ -3953,7 +3953,7 @@ loc_1D26:
 		adc	word_10350, dx
 		push	400h		; len
 		push	ds
-		push	offset byte_10352 ; buf
+		push	offset DGROUP:byte_10352 ; buf
 		push	handle		; handle
 		call	__read
 		add	sp, 8
@@ -4775,13 +4775,13 @@ loc_22F2:
 		push	word ptr [bp+@@src+2]
 		push	word ptr [bp+@@src] ; src
 		push	ds
-		push	offset byte_1285A ; dest
+		push	offset DGROUP:byte_1285A ; dest
 		call	_strcpy
 		add	sp, 8
 		push	word ptr [bp+@@name+2]
 		push	word ptr [bp+@@name] ; name
 		push	ds
-		push	offset byte_1285A ; s1
+		push	offset DGROUP:byte_1285A ; s1
 		call	sub_27B4
 		les	bx, [bp+arg_0]
 		mov	word ptr es:[bx], 1
@@ -4794,13 +4794,13 @@ loc_2335:
 		push	word ptr [bp+var_4+2]
 		push	ax		; src
 		push	ds
-		push	offset byte_1285A ; dest
+		push	offset DGROUP:byte_1285A ; dest
 		call	_strcpy
 		add	sp, 8
 		push	word ptr [bp+@@name+2]
 		push	word ptr [bp+@@name] ; name
 		push	ds
-		push	offset byte_1285A ; s1
+		push	offset DGROUP:byte_1285A ; s1
 		call	sub_27B4
 
 loc_2354:
@@ -5784,7 +5784,7 @@ var_4		= dword	ptr -4
 
 		enter	4, 0
 		push	ds
-		push	offset byte_1385A
+		push	offset DGROUP:byte_1385A
 		call	sub_2AFF
 		shl	ax, 2
 		mov	bx, ax
@@ -5799,7 +5799,7 @@ loc_2ABA:
 		push	word ptr [bp+var_4+2]
 		push	ax
 		push	ds
-		push	offset byte_1385A
+		push	offset DGROUP:byte_1385A
 		call	sub_2B79
 		or	ax, ax
 		jz	short loc_2ADE
@@ -8347,7 +8347,7 @@ loc_3E6A:
 
 loc_3E7B:
 		push	ds
-		push	offset byte_1285A
+		push	offset DGROUP:byte_1285A
 		push	si
 		call	sub_3F95
 
@@ -8670,11 +8670,11 @@ loc_4093:
 		push	dx
 		push	ax		; src
 		push	ds
-		push	offset byte_126AE ; dest
+		push	offset DGROUP:byte_126AE ; dest
 		call	_strcpy
 		add	sp, 8
 		push	ds
-		push	offset byte_126AE
+		push	offset DGROUP:byte_126AE
 		jmp	short loc_40C9
 ; ---------------------------------------------------------------------------
 
@@ -9343,7 +9343,7 @@ loc_45B7:
 		cmp	[bp+var_6], 21h	; '!'
 		jnz	short loc_4621
 		push	ds
-		push	offset byte_1285A ; s
+		push	offset DGROUP:byte_1285A ; s
 		call	_strlen
 		add	sp, 4
 		inc	ax
@@ -9352,7 +9352,7 @@ loc_45B7:
 		mov	word ptr [bp+block+2], dx
 		mov	word ptr [bp+block], ax
 		push	ds
-		push	offset byte_1285A ; src
+		push	offset DGROUP:byte_1285A ; src
 		push	dx
 		push	ax		; dest
 		call	_strcpy
@@ -9365,7 +9365,7 @@ loc_45B7:
 		push	word ptr [bp+block+2]
 		push	word ptr [bp+block] ; src
 		push	ds
-		push	offset byte_1285A ; dest
+		push	offset DGROUP:byte_1285A ; dest
 		call	_strcpy
 		add	sp, 8
 		mov	ax, word ptr [bp+block]
@@ -9652,7 +9652,7 @@ loc_4822:
 
 loc_482D:
 		push	ds
-		push	offset byte_1285A ; s
+		push	offset DGROUP:byte_1285A ; s
 		call	_strlen
 		add	sp, 4
 		inc	ax
@@ -9661,7 +9661,7 @@ loc_482D:
 		mov	word ptr [bp+block+2], dx
 		mov	word ptr [bp+block], ax
 		push	ds
-		push	offset byte_1285A ; src
+		push	offset DGROUP:byte_1285A ; src
 		push	dx
 		push	ax		; dest
 		call	_strcpy
@@ -9674,7 +9674,7 @@ loc_482D:
 		push	word ptr [bp+block+2]
 		push	word ptr [bp+block] ; src
 		push	ds
-		push	offset byte_1285A ; dest
+		push	offset DGROUP:byte_1285A ; dest
 		call	_strcpy
 		add	sp, 8
 		mov	ax, word ptr [bp+block]
@@ -10002,7 +10002,7 @@ loc_4A99:
 		push	ds
 		push	offset aElse	; "else"
 		push	ds
-		push	offset byte_1385A ; s1
+		push	offset DGROUP:byte_1385A ; s1
 		call	_stricmp
 		add	sp, 8
 		or	ax, ax
@@ -10078,11 +10078,11 @@ loc_4B39:
 		call	sub_565E
 		mov	[bp+var_6], ax
 		push	ds
-		push	offset byte_1385A ; s
+		push	offset DGROUP:byte_1385A ; s
 		call	_strlwr
 		add	sp, 4
 		push	ds
-		push	offset byte_1385A ; s2
+		push	offset DGROUP:byte_1385A ; s2
 		push	ds
 		push	offset aInclude	; "include"
 		call	_strcmp
@@ -10095,7 +10095,7 @@ loc_4B39:
 
 loc_4B67:
 		push	ds
-		push	offset byte_1385A ; s2
+		push	offset DGROUP:byte_1385A ; s2
 		push	ds
 		push	offset aUndef	; "undef"
 		call	_strcmp
@@ -10108,7 +10108,7 @@ loc_4B67:
 
 loc_4B82:
 		push	ds
-		push	offset byte_1385A ; s2
+		push	offset DGROUP:byte_1385A ; s2
 		push	ds
 		push	offset aElif	; "elif"
 		call	_strcmp
@@ -10116,7 +10116,7 @@ loc_4B82:
 		or	ax, ax
 		jz	short loc_4BA6
 		push	ds
-		push	offset byte_1385A ; s2
+		push	offset DGROUP:byte_1385A ; s2
 		push	ds
 		push	offset aElseif	; "elseif"
 		call	_strcmp
@@ -10131,7 +10131,7 @@ loc_4BA6:
 
 loc_4BAF:
 		push	ds
-		push	offset byte_1385A ; s2
+		push	offset DGROUP:byte_1385A ; s2
 		push	ds
 		push	(offset	aElif+2) ; s1
 		call	_strcmp
@@ -10144,7 +10144,7 @@ loc_4BAF:
 
 loc_4BCA:
 		push	ds
-		push	offset byte_1385A ; s2
+		push	offset DGROUP:byte_1385A ; s2
 		push	ds
 		push	offset aIfdef	; "ifdef"
 		call	_strcmp
@@ -10157,7 +10157,7 @@ loc_4BCA:
 
 loc_4BE5:
 		push	ds
-		push	offset byte_1385A ; s2
+		push	offset DGROUP:byte_1385A ; s2
 		push	ds
 		push	offset aIfndef	; "ifndef"
 		call	_strcmp
@@ -10170,7 +10170,7 @@ loc_4BE5:
 
 loc_4C00:
 		push	ds
-		push	offset byte_1385A ; s2
+		push	offset DGROUP:byte_1385A ; s2
 		push	ds
 		push	offset aEndif	; "endif"
 		call	_strcmp
@@ -10183,7 +10183,7 @@ loc_4C00:
 
 loc_4C1B:
 		push	ds
-		push	offset byte_1385A ; s2
+		push	offset DGROUP:byte_1385A ; s2
 		push	ds
 		push	offset aElse	; "else"
 		call	_strcmp
@@ -10196,7 +10196,7 @@ loc_4C1B:
 
 loc_4C35:
 		push	ds
-		push	offset byte_1385A ; s2
+		push	offset DGROUP:byte_1385A ; s2
 		push	ds
 		push	offset aError	; "error"
 		call	_strcmp
@@ -10209,7 +10209,7 @@ loc_4C35:
 
 loc_4C4F:
 		push	ds
-		push	offset byte_1385A ; s2
+		push	offset DGROUP:byte_1385A ; s2
 		push	ds
 		push	offset aMessage	; "message"
 		call	_strcmp
@@ -10222,7 +10222,7 @@ loc_4C4F:
 
 loc_4C69:
 		push	ds
-		push	offset byte_1385A ; s2
+		push	offset DGROUP:byte_1385A ; s2
 		push	ds
 		push	offset aCmdswitches ; "cmdswitches"
 		call	_strcmp
@@ -10264,7 +10264,7 @@ arg_0		= word ptr  4
 		push	0
 		call	sub_693F
 		push	ds
-		push	offset byte_1285A
+		push	offset DGROUP:byte_1285A
 		push	ds
 		push	offset aErrorDirective ; "Error	directive: %s"
 		call	sub_8D1A
@@ -10289,7 +10289,7 @@ arg_0		= word ptr  4
 		push	0
 		call	sub_693F
 		push	ds
-		push	offset byte_1285A
+		push	offset DGROUP:byte_1285A
 		push	ds
 		push	offset aS_5	; "%s\r\n"
 		call	sub_8E0F
@@ -10582,11 +10582,11 @@ loc_4F23:
 		push	word ptr [bp+@@s+2]
 		push	word ptr [bp+@@s]	; src
 		push	ds
-		push	offset byte_1385A ; dest
+		push	offset DGROUP:byte_1385A ; dest
 		call	_strcpy
 		add	sp, 8
 		push	ds
-		push	offset byte_1385A ; s
+		push	offset DGROUP:byte_1385A ; s
 		call	sub_894C
 		push	dx
 		push	ax		; s
@@ -10600,7 +10600,7 @@ loc_4F23:
 		mov	word ptr [bp+@@offset], ax
 		call	sub_1C8A
 		push	ds
-		push	offset byte_1385A ; path
+		push	offset DGROUP:byte_1385A ; path
 		call	sub_1BCC
 		mov	si, ax
 		mov	dx, word_1076C
@@ -10615,25 +10615,25 @@ loc_4F70:
 		push	word ptr es:[bx+8]
 		push	word ptr es:[bx+6] ; src
 		push	ds
-		push	offset byte_1285A ; dest
+		push	offset DGROUP:byte_1285A ; dest
 		call	_strcpy
 		add	sp, 8
 		push	ds
-		push	offset byte_1385A ; src
+		push	offset DGROUP:byte_1385A ; src
 		push	ds
-		push	offset byte_1285A ; dest
+		push	offset DGROUP:byte_1285A ; dest
 		call	_strcat
 		add	sp, 8
 		push	ds
-		push	offset byte_1285A ; path
+		push	offset DGROUP:byte_1285A ; path
 		call	sub_1BCC
 		mov	si, ax
 		or	si, si
 		jz	short loc_4FAE
 		push	ds
-		push	offset byte_1285A ; src
+		push	offset DGROUP:byte_1285A ; src
 		push	ds
-		push	offset byte_1385A ; dest
+		push	offset DGROUP:byte_1385A ; dest
 		call	_strcpy
 		add	sp, 8
 
@@ -10655,7 +10655,7 @@ loc_4FCB:
 		or	si, si
 		jnz	short loc_4FDF
 		push	ds
-		push	offset byte_1385A
+		push	offset DGROUP:byte_1385A
 		push	ds
 		push	offset aUnableToOpenIn ; "Unable to open include file '%s'"
 		call	sub_8D8E
@@ -10665,7 +10665,7 @@ loc_4FCB:
 
 loc_4FDF:
 		push	ds
-		push	offset byte_1385A ; s
+		push	offset DGROUP:byte_1385A ; s
 		call	_strlen
 		add	sp, 4
 		inc	ax
@@ -10674,7 +10674,7 @@ loc_4FDF:
 		mov	word ptr [bp+@@s+2], dx
 		mov	word ptr [bp+@@s], ax
 		push	ds
-		push	offset byte_1385A ; src
+		push	offset DGROUP:byte_1385A ; src
 		push	dx
 		push	ax		; dest
 		call	_strcpy
@@ -10711,7 +10711,7 @@ var_4		= dword	ptr -4
 
 		enter	4, 0
 		push	ds
-		push	offset byte_1285A ; s
+		push	offset DGROUP:byte_1285A ; s
 		call	_strlen
 		add	sp, 4
 		add	ax, 4759h
@@ -10800,7 +10800,7 @@ loc_50B7:
 		push	ax
 		call	sub_5678
 		push	ds
-		push	offset byte_1385A
+		push	offset DGROUP:byte_1385A
 		call	sub_28FE
 
 loc_50C6:
@@ -10886,7 +10886,7 @@ loc_5137:
 		or	di, di
 		jz	short loc_5146
 		push	ds
-		push	offset byte_1285A
+		push	offset DGROUP:byte_1285A
 		call	sub_7963
 		or	ax, ax
 		jnz	short loc_515F
@@ -11637,7 +11637,7 @@ loc_5632:
 		or	ax, ax
 		jz	short loc_5651
 		push	ds
-		push	offset byte_1285A
+		push	offset DGROUP:byte_1285A
 		call	sub_7963
 		or	ax, ax
 		jz	short loc_5651
@@ -11846,11 +11846,11 @@ arg_2		= word ptr  6
 		push	[bp+arg_2]
 		push	[bp+arg_0]	; src
 		push	ds
-		push	offset byte_12708 ; dest
+		push	offset DGROUP:byte_12708 ; dest
 		call	_strcpy
 		add	sp, 8
 		push	ds
-		push	offset byte_12708 ; pathname
+		push	offset DGROUP:byte_12708 ; pathname
 		call	sub_5C2E
 		or	ax, ax
 		jz	short loc_5785
@@ -11896,7 +11896,7 @@ loc_57BD:
 		push	word ptr [bp+@@src+2]
 		push	word ptr [bp+@@src] ; src
 		push	ds
-		push	offset byte_12708 ; dest
+		push	offset DGROUP:byte_12708 ; dest
 		call	_memmove
 		add	sp, 0Ah
 		mov	bx, word ptr [bp+var_4]
@@ -11923,7 +11923,7 @@ loc_5801:
 
 loc_580D:
 		push	ds
-		push	offset byte_12708 ; s
+		push	offset DGROUP:byte_12708 ; s
 		call	_strlen
 		add	sp, 4
 		add	ax, 4607h
@@ -11940,7 +11940,7 @@ loc_580D:
 		jz	short loc_5849
 		push	40h ; '@'       ; int
 		push	ds
-		push	offset byte_12708 ; dest
+		push	offset DGROUP:byte_12708 ; dest
 		push	ds
 		push	offset asc_E4C4	; "\\"
 		call	sub_5DA2
@@ -11948,12 +11948,12 @@ loc_580D:
 loc_5849:
 		push	4Fh ; 'O'       ; int
 		push	ds
-		push	offset byte_12708 ; dest
+		push	offset DGROUP:byte_12708 ; dest
 		push	[bp+arg_2]
 		push	[bp+arg_0]	; src
 		call	sub_5DA2
 		push	ds
-		push	offset byte_12708 ; pathname
+		push	offset DGROUP:byte_12708 ; pathname
 		call	sub_5C2E
 		or	ax, ax
 		jnz	short loc_587D
@@ -12038,7 +12038,7 @@ loc_58BC:
 		inc	ax
 		push	ax		; int
 		push	ds
-		push	offset byte_1275A ; dest
+		push	offset DGROUP:byte_1275A ; dest
 		push	[bp+arg_6]
 		push	[bp+arg_4]	; src
 		call	sub_5DA2
@@ -12046,7 +12046,7 @@ loc_58BC:
 		inc	ax
 		push	ax		; int
 		push	ds
-		push	offset byte_1275A ; dest
+		push	offset DGROUP:byte_1275A ; dest
 		push	ds
 		push	offset asc_E4CE	; " "
 		call	sub_5DA2
@@ -12054,7 +12054,7 @@ loc_58BC:
 		inc	ax
 		push	ax		; int
 		push	ds
-		push	offset byte_1275A ; dest
+		push	offset DGROUP:byte_1275A ; dest
 		push	word ptr [bp+@@s+2]
 		push	word ptr [bp+@@s]	; src
 		call	sub_5DA2
@@ -12919,7 +12919,7 @@ loc_5FA6:
 		push	ds
 		push	offset aDefined	; "defined"
 		push	ds
-		push	offset byte_1385A ; s1
+		push	offset DGROUP:byte_1385A ; s1
 		call	_stricmp
 		add	sp, 8
 		or	ax, ax
@@ -13213,13 +13213,13 @@ loc_61D0:
 
 loc_61DA:
 		push	ds
-		push	offset byte_14106 ; __int32
+		push	offset DGROUP:byte_14106 ; __int32
 		push	ds
-		push	offset byte_140F4 ; __int32
+		push	offset DGROUP:byte_140F4 ; __int32
 		push	ds
-		push	offset byte_14070 ; __int32
+		push	offset DGROUP:byte_14070 ; __int32
 		push	ds
-		push	offset byte_1406A ; __int32
+		push	offset DGROUP:byte_1406A ; __int32
 		les	bx, [bp+var_4]
 		les	bx, es:[bx+4]
 		push	word ptr es:[bx+2]
@@ -13230,9 +13230,9 @@ loc_61DA:
 		test	si, 1
 		jz	short loc_6217
 		push	ds
-		push	offset byte_1406A ; src
+		push	offset DGROUP:byte_1406A ; src
 		push	ds
-		push	offset byte_1385A ; dest
+		push	offset DGROUP:byte_1385A ; dest
 		call	_strcat
 		add	sp, 8
 
@@ -13240,9 +13240,9 @@ loc_6217:
 		test	si, 2
 		jz	short loc_622B
 		push	ds
-		push	offset byte_14070 ; src
+		push	offset DGROUP:byte_14070 ; src
 		push	ds
-		push	offset byte_1385A ; dest
+		push	offset DGROUP:byte_1385A ; dest
 		call	_strcat
 		add	sp, 8
 
@@ -13250,9 +13250,9 @@ loc_622B:
 		test	si, 4
 		jz	short loc_623F
 		push	ds
-		push	offset byte_140F4 ; src
+		push	offset DGROUP:byte_140F4 ; src
 		push	ds
-		push	offset byte_1385A ; dest
+		push	offset DGROUP:byte_1385A ; dest
 		call	_strcat
 		add	sp, 8
 
@@ -13260,9 +13260,9 @@ loc_623F:
 		test	si, 8
 		jz	short loc_6253
 		push	ds
-		push	offset byte_14106 ; src
+		push	offset DGROUP:byte_14106 ; src
 		push	ds
-		push	offset byte_1385A ; dest
+		push	offset DGROUP:byte_1385A ; dest
 		call	_strcat
 		add	sp, 8
 
@@ -13270,7 +13270,7 @@ loc_6253:
 		cmp	word_F50E, 0
 		jz	short loc_627B
 		push	ds
-		push	offset byte_1385A ; s
+		push	offset DGROUP:byte_1385A ; s
 		call	_strlen
 		add	sp, 4
 		dec	ax
@@ -13286,7 +13286,7 @@ loc_627B:
 		push	ds
 		push	offset asc_E4EC	; " "
 		push	ds
-		push	offset byte_1385A ; dest
+		push	offset DGROUP:byte_1385A ; dest
 		call	_strcat
 		add	sp, 8
 		push	di
@@ -13345,7 +13345,7 @@ arg_0		= word ptr  4
 		push	word_14112
 		push	word_14110	; __int32
 		push	ds
-		push	offset byte_1385A ; dest
+		push	offset DGROUP:byte_1385A ; dest
 		call	sub_9247
 		add	sp, 14h
 		cmp	word_F50E, 0
@@ -13355,7 +13355,7 @@ arg_0		= word ptr  4
 
 loc_62F7:
 		push	ds
-		push	offset byte_1385A ; s
+		push	offset DGROUP:byte_1385A ; s
 		call	_strlen
 		add	sp, 4
 		dec	ax
@@ -13416,7 +13416,7 @@ loc_6367:
 
 loc_6372:
 		push	ds
-		push	offset byte_1385A ; dest
+		push	offset DGROUP:byte_1385A ; dest
 		call	_strcpy
 		add	sp, 8
 		jmp	loc_6404
@@ -13446,15 +13446,15 @@ loc_638F:
 		push	0		; int
 		push	0		; int
 		push	ds		; int
-		push	offset byte_140FD ; int
+		push	offset DGROUP:byte_140FD ; int
 		push	ds
-		push	offset byte_140B2 ; src
+		push	offset DGROUP:byte_140B2 ; src
 		push	ds
-		push	offset byte_1406D ; __int32
+		push	offset DGROUP:byte_1406D ; __int32
 
 loc_63B9:
 		push	ds
-		push	offset byte_1385A ; dest
+		push	offset DGROUP:byte_1385A ; dest
 		call	sub_9247
 		add	sp, 14h
 		jmp	short loc_6404
@@ -13704,7 +13704,7 @@ loc_6513:
 		push	dx
 		push	ax		; __int32
 		push	ds
-		push	offset byte_1385A ; dest
+		push	offset DGROUP:byte_1385A ; dest
 		call	sub_9247
 		add	sp, 14h
 		pop	si
@@ -13731,7 +13731,7 @@ arg_0		= word ptr  4
 		push	ds
 		push	offset asc_E4EE	; "**"
 		push	ds
-		push	offset byte_1385A ; s1
+		push	offset DGROUP:byte_1385A ; s1
 		call	_strncmp
 		add	sp, 0Ah
 		or	ax, ax
@@ -13762,7 +13762,7 @@ loc_655D:
 
 loc_6574:
 		push	ds
-		push	offset byte_1385A ; s
+		push	offset DGROUP:byte_1385A ; s
 		call	_strlen
 		add	sp, 4
 		dec	ax
@@ -13864,7 +13864,7 @@ loc_6629:
 		cmp	word_F50E, 0
 		jz	short loc_665D
 		push	ds
-		push	offset byte_1385A ; s
+		push	offset DGROUP:byte_1385A ; s
 		call	_strlen
 		add	sp, 4
 		dec	ax
@@ -14797,25 +14797,25 @@ loc_6CB3:
 		mov	word_13A5C, ds
 		mov	word_13A5A, 75Ah
 		push	ds
-		push	offset byte_14106 ; __int32
+		push	offset DGROUP:byte_14106 ; __int32
 		push	ds
-		push	offset byte_140F4 ; __int32
+		push	offset DGROUP:byte_140F4 ; __int32
 		push	ds
-		push	offset byte_14070 ; __int32
+		push	offset DGROUP:byte_14070 ; __int32
 		push	ds
-		push	offset byte_1406A ; __int32
+		push	offset DGROUP:byte_1406A ; __int32
 		push	word ptr [bp+@@src+2]
 		push	word ptr [bp+@@src] ; src
 		call	sub_90B3
 		add	sp, 14h
 		push	ds
-		push	offset byte_1410B ; __int32
+		push	offset DGROUP:byte_1410B ; __int32
 		push	ds
-		push	offset byte_140FD ; __int32
+		push	offset DGROUP:byte_140FD ; __int32
 		push	ds
-		push	offset byte_140B2 ; __int32
+		push	offset DGROUP:byte_140B2 ; __int32
 		push	ds
-		push	offset byte_1406D ; __int32
+		push	offset DGROUP:byte_1406D ; __int32
 		les	bx, dword_102E8
 		push	word ptr es:[bx+2]
 		push	word ptr es:[bx] ; src
@@ -15398,14 +15398,14 @@ loc_7160:
 		push	word ptr es:[bx+2]
 		push	word ptr es:[bx] ; src
 		push	ds
-		push	offset byte_13C66 ; dest
+		push	offset DGROUP:byte_13C66 ; dest
 		call	_strcpy
 		add	sp, 8
 		les	bx, [bp+arg_0]
 		push	word ptr es:[bx+2]
 		push	word ptr es:[bx] ; src
 		push	ds
-		push	offset byte_13E66 ; dest
+		push	offset DGROUP:byte_13E66 ; dest
 		call	_strcpy
 		add	sp, 8
 
@@ -15471,12 +15471,12 @@ loc_71DA:
 
 loc_71E2:
 		push	ds
-		push	offset byte_1385A ; s
+		push	offset DGROUP:byte_1385A ; s
 		call	sub_894C
 		mov	word ptr [bp+block+2], dx
 		mov	word ptr [bp+block], ax
 		push	ds
-		push	offset byte_1285A ; s
+		push	offset DGROUP:byte_1285A ; s
 		call	sub_894C
 		mov	[bp+var_A], dx
 		mov	[bp+var_C], ax
@@ -15520,7 +15520,7 @@ loc_71E2:
 		push	[bp+var_1C]
 		call	sub_666B
 		push	ds
-		push	offset byte_1285A ; src
+		push	offset DGROUP:byte_1285A ; src
 		les	bx, [bp+arg_0]
 		push	word ptr es:[bx+2]
 		push	word ptr es:[bx] ; dest
@@ -15538,13 +15538,13 @@ loc_728C:
 		push	word ptr [bp+block+2]
 		push	word ptr [bp+block] ; src
 		push	ds
-		push	offset byte_1385A ; dest
+		push	offset DGROUP:byte_1385A ; dest
 		call	_strcpy
 		add	sp, 8
 		push	[bp+var_A]
 		push	[bp+var_C]	; src
 		push	ds
-		push	offset byte_1285A ; dest
+		push	offset DGROUP:byte_1285A ; dest
 		call	_strcpy
 		add	sp, 8
 		mov	dx, [bp+var_E]
@@ -15594,7 +15594,7 @@ loc_72F0:
 		mov	word ptr [bp+var_8+2], ds
 		mov	word ptr [bp+var_8], 5B66h
 		push	ds
-		push	offset byte_13C66 ; s
+		push	offset DGROUP:byte_13C66 ; s
 		call	_strlen
 		add	sp, 4
 		add	ax, 5B66h
@@ -15752,7 +15752,7 @@ loc_7419:
 		les	bx, [bp+var_4]
 		mov	byte ptr es:[bx], 0
 		push	ds
-		push	offset byte_1385A
+		push	offset DGROUP:byte_1385A
 		call	sub_2A47
 		or	ax, ax
 		jz	short loc_7432
@@ -16164,13 +16164,13 @@ arg_4		= dword	ptr  8
 
 loc_76CE:
 		push	ds
-		push	offset byte_1410B ; __int32
+		push	offset DGROUP:byte_1410B ; __int32
 		push	ds
-		push	offset byte_140FD ; __int32
+		push	offset DGROUP:byte_140FD ; __int32
 		push	ds
-		push	offset byte_140B2 ; __int32
+		push	offset DGROUP:byte_140B2 ; __int32
 		push	ds
-		push	offset byte_1406D ; __int32
+		push	offset DGROUP:byte_1406D ; __int32
 		les	bx, [bp+arg_4]
 		push	word ptr es:[bx+2]
 		push	word ptr es:[bx] ; src
@@ -16276,7 +16276,7 @@ loc_779D:
 		push	di
 		call	sub_6467
 		push	ds
-		push	offset byte_1385A ; s
+		push	offset DGROUP:byte_1385A ; s
 		call	_strlen
 		add	sp, 4
 		mov	[bp+var_4], ax
@@ -16666,7 +16666,7 @@ loc_7A48:
 		push	ss
 		push	ax
 		push	ds
-		push	offset word_14132
+		push	offset DGROUP:word_14132
 		mov	cx, 0Ch
 		call	N_SCOPY@
 
@@ -18631,13 +18631,13 @@ loc_87F4:
 		push	word ptr [bp+@@src+2]
 		push	word ptr [bp+@@src] ; src
 		push	ds
-		push	offset byte_1285A ; dest
+		push	offset DGROUP:byte_1285A ; dest
 		call	_strcpy
 		add	sp, 8
 		push	word ptr [bp+@@name+2]
 		push	word ptr [bp+@@name] ; name
 		push	ds
-		push	offset byte_1285A ; s1
+		push	offset DGROUP:byte_1285A ; s1
 
 loc_880E:
 		call	sub_27B4
@@ -18894,12 +18894,12 @@ loc_8998:
 		push	1000h		; n
 		push	0		; c
 		push	ds
-		push	offset byte_1285A ; s
+		push	offset DGROUP:byte_1285A ; s
 		call	_memset
 		add	sp, 8
 		push	1000h
 		push	ds
-		push	offset byte_1285A
+		push	offset DGROUP:byte_1285A
 		push	di
 		call	j____read
 		add	sp, 8
@@ -20397,7 +20397,7 @@ loc_940A:
 		call	_strncpy
 		add	sp, 0Ah
 		push	ds
-		push	offset byte_14144 ; s
+		push	offset DGROUP:byte_14144 ; s
 		call	_strlen
 		add	sp, 4
 		mov	word_14142, ax
@@ -20454,7 +20454,7 @@ arg_6		= word ptr  0Ah
 		push	[bp+arg_2]
 		push	[bp+arg_0]
 		push	ds
-		push	offset byte_14144
+		push	offset DGROUP:byte_14144
 		push	word_14142
 		jmp	short loc_9480
 ; ---------------------------------------------------------------------------
@@ -34266,9 +34266,9 @@ aSS02d02d02d02d	db '%s %s %02d %02d:%02d:%02d %4d',0
 		db  6Dh	; m
 		db    1
 ; char *off_101FE
-off_101FE	dd byte_1420E
+off_101FE	dd DGROUP:byte_1420E
 ; void *s
-s		dd byte_14212
+s		dd DGROUP:byte_14212
 word_10206	dw 4650h
 word_10208	dw 0
 word_1020A	dw 1
