@@ -70,15 +70,16 @@ FILE		ends
 ; OS type	  :  MS	DOS
 ; Application type:  Executable	16bit
 
-		.386
-		.model large
+		.286
+
+DGROUP group _DATA, _BSS
 
 ; ===========================================================================
 
 ; Segment type:	Pure code
-seg000		segment	byte public 'CODE' use16
-		assume cs:seg000
-		assume es:nothing, ss:seg002, ds:nothing, fs:nothing, gs:nothing
+_TEXT	segment byte public 'CODE' use16
+		assume cs:_TEXT
+		assume es:nothing, ds:DGROUP
 
 ; =============== S U B	R O U T	I N E =======================================
 
@@ -86,7 +87,7 @@ seg000		segment	byte public 'CODE' use16
 
 		public start
 start		proc near
-		mov	dx, seg	dseg
+		mov	dx, seg	DGROUP
 		mov	cs:DGROUP@, dx
 		mov	ah, 30h
 		int	21h		; DOS -	GET DOS	VERSION
@@ -94,7 +95,7 @@ start		proc near
 		mov	bp, ds:2
 		mov	bx, ds:2Ch
 		mov	ds, dx
-		assume ds:dseg
+		assume ds:DGROUP
 		mov	__version, ax
 		mov	__psp, es
 		mov	word_E176, bx
@@ -124,9 +125,9 @@ loc_37:
 		mov	word_E178, bx
 		mov	dx, ss
 		sub	bp, dx
-		mov	di, seg	dseg
+		mov	di, seg	DGROUP
 		mov	es, di
-		assume es:dseg
+		assume es:DGROUP
 		mov	di, es:__stklen
 		cmp	di, 200h
 		jnb	short loc_75
@@ -165,9 +166,9 @@ loc_81:
 		assume ss:nothing
 		mov	sp, di
 		sti
-		mov	ax, seg	dseg
+		mov	ax, seg	DGROUP
 		mov	es, ax
-		assume es:dseg
+		assume es:DGROUP
 		mov	es:__stklen, di
 		xor	ax, ax
 		mov	es, cs:DGROUP@
@@ -321,13 +322,13 @@ sub_16A		proc near
 		mov	ax, 2500h
 		mov	dx, cs
 		mov	ds, dx
-		assume ds:seg000
+		assume ds:_TEXT
 		mov	dx, 159h
 		int	21h		; DOS -	SET INTERRUPT VECTOR
 					; AL = interrupt number
 					; DS:DX	= new vector to	be used	for specified interrupt
 		pop	ds
-		assume ds:dseg
+		assume ds:DGROUP
 		retn
 sub_16A		endp
 
@@ -4441,9 +4442,9 @@ loc_20CF:
 		xor	dx, dx
 		mov	cl, 4
 		call	near ptr N_LXLSH@
-		mov	bx, seg	seg000
+		mov	bx, seg	_TEXT
 		mov	es, bx
-		assume es:seg000
+		assume es:_TEXT
 		sub	ax, es:word_9AEE
 		sbb	dx, 0
 		jmp	short loc_20F6
@@ -19073,7 +19074,7 @@ arg_0		= word ptr  4
 		mov	es:[bx], al
 		mov	ax, ds
 		mov	es, ax
-		assume es:dseg
+		assume es:DGROUP
 		lds	dx, [bp+@@dest]
 		mov	ah, 0Ah
 		int	21h		; DOS -	BUFFERED KEYBOARD INPUT
@@ -20496,13 +20497,13 @@ sub_9496	proc far
 		mov	ax, cs
 		cli
 		mov	ss, ax
-		assume ss:seg000
+		assume ss:_TEXT
 		mov	sp, 2A6h
 		sti
 		mov	ah, 4Ah	; 'J'
 		mov	bx, word_E1E9
 		mov	es, word_E23F
-		assume es:seg000
+		assume es:_TEXT
 		int	21h		; DOS -	2+ - ADJUST MEMORY BLOCK SIZE (SETBLOCK)
 					; ES = segment address of block	to change
 					; BX = new size	in paragraphs
@@ -20588,7 +20589,7 @@ arg_A		= word ptr  0Eh
 		push	dx
 		mov	bx, [bp+arg_8]
 		mov	ds, [bp+arg_6]
-		assume es:seg000, ss:seg000
+		assume es:_TEXT, ss:_TEXT
 		mov	dx, [bp+arg_4]
 		mov	cx, 8000h
 
@@ -20629,7 +20630,7 @@ loc_9565:
 		pop	cx
 		pop	bx
 		pop	ds
-		assume ds:dseg
+		assume ds:DGROUP
 		pop	bp
 		retn	0Ch
 sub_951C	endp
@@ -20736,7 +20737,7 @@ loc_97F7:
 		mov	bx, 9791h
 		mov	si, cs
 		mov	ds, si
-		assume ds:seg000
+		assume ds:_TEXT
 		mov	cx, 1Fh
 
 loc_9801:
@@ -20807,7 +20808,7 @@ loc_985C:
 					; CX = attributes for file
 					; DS:DX	-> ASCIZ filename (may include drive and path)
 		pop	ds
-		assume ds:dseg
+		assume ds:DGROUP
 		jnb	short loc_987A
 		mov	cs:word_956D, 0FFFFh
 		jmp	loc_9ABF
@@ -20878,7 +20879,7 @@ loc_98D1:
 		lds	si, [bp+arg_A]
 		mov	ax, cs
 		mov	es, ax
-		assume es:seg000
+		assume es:_TEXT
 		mov	di, 9627h
 
 loc_9920:
@@ -20918,7 +20919,7 @@ loc_993E:
 		xor	ax, ax
 		rep stosw
 		mov	ds, bx
-		assume ds:seg000
+		assume ds:_TEXT
 		mov	si, 9677h
 		inc	si
 		mov	di, 9585h
@@ -20935,7 +20936,7 @@ loc_993E:
 					; ES:DI	-> buffer to fill with unopened	FCB
 					; AL = bit mask	to control parsing
 		pop	ds
-		assume ds:dseg
+		assume ds:DGROUP
 		mov	cs:word_973E, ds
 		mov	es, __psp
 		assume es:nothing
@@ -21016,7 +21017,7 @@ loc_9A2D:
 loc_9A3B:
 		mov	ax, cs
 		mov	ds, ax
-		assume ds:seg000
+		assume ds:_TEXT
 		mov	dx, 95D7h
 		mov	ax, 4301h
 		mov	cx, 1
@@ -21033,7 +21034,7 @@ loc_9A3B:
 		mov	word ptr cs:dword_97A5,	0
 		mov	ax, cs:word_973C
 		mov	ds, ax
-		assume ds:dseg
+		assume ds:DGROUP
 		mov	word ptr cs:dword_97A5+2, ax
 		jmp	cs:dword_97A5
 ; ---------------------------------------------------------------------------
@@ -21072,13 +21073,13 @@ loc_9ABF:
 		push	ds
 		mov	ax, cs
 		mov	ds, ax
-		assume ds:seg000
+		assume ds:_TEXT
 		mov	dx, 95D7h
 		mov	ah, 41h
 		int	21h		; DOS -	2+ - DELETE A FILE (UNLINK)
 					; DS:DX	-> ASCIZ pathname of file to delete (no	wildcards allowed)
 		pop	ds
-		assume ds:dseg
+		assume ds:DGROUP
 		cmp	_errno, 0
 		jz	short loc_9AE4
 		mov	ax, 0FFFFh
@@ -21368,7 +21369,7 @@ n		= word ptr  0Ah
 loc_9BFA:
 		xor	di, di
 		mov	es, di
-		assume es:seg000
+		assume es:_TEXT
 		mov	di, 1
 
 loc_9C01:
@@ -22073,7 +22074,7 @@ loc_9F0D:
 loc_9F1E:
 		xor	bx, bx
 		mov	es, bx
-		assume es:seg000
+		assume es:_TEXT
 		mov	bx, 1
 		jmp	short loc_9F34
 ; ---------------------------------------------------------------------------
@@ -23181,7 +23182,7 @@ loc_A4C7:
 		add	[bp+arg_0], 2
 		push	ds
 		pop	es
-		assume es:dseg
+		assume es:DGROUP
 		or	di, di
 		jmp	short loc_A4EF
 ; ---------------------------------------------------------------------------
@@ -23197,7 +23198,7 @@ loc_A4EF:
 		jnz	short loc_A4F6
 		push	ds
 		pop	es
-		assume es:dseg
+		assume es:DGROUP
 		mov	di, 1A2Ah
 
 loc_A4F6:
@@ -23417,7 +23418,7 @@ loc_A648:
 		add	[bp+arg_0], 2
 		push	ds
 		pop	es
-		assume es:dseg
+		assume es:DGROUP
 		jmp	short loc_A667
 ; ---------------------------------------------------------------------------
 
@@ -27743,7 +27744,7 @@ sub_BF49	proc near
 		mov	ds, dx
 		assume ds:nothing
 		mov	ds, word ptr ds:2
-		assume ds:dseg
+		assume ds:DGROUP
 		cmp	word_E102, 0
 		jz	short loc_BF64
 		mov	cs:word_BF3F, ds
@@ -28198,7 +28199,7 @@ loc_C227:
 		mov	ax, es
 		inc	ax
 		mov	es, ax
-		assume es:seg000
+		assume es:_TEXT
 		mov	ax, ds
 		inc	ax
 		mov	ds, ax
@@ -28232,7 +28233,7 @@ loc_C25A:
 
 loc_C278:
 		mov	ds, cs:word_BF43
-		assume ds:dseg
+		assume ds:DGROUP
 		call	_farfree
 		add	sp, 4
 		pop	dx
@@ -29979,7 +29980,7 @@ loc_CD89:
 		lds	si, [bp+arg_0]
 		push	cs
 		pop	es
-		assume es:seg000
+		assume es:_TEXT
 		mov	di, 0CBD5h
 
 loc_CD91:
@@ -29990,10 +29991,10 @@ loc_CD91:
 		mov	bx, [bp+var_2]
 		push	ds
 		pop	es
-		assume es:dseg
+		assume es:DGROUP
 		push	cs
 		pop	ds
-		assume ds:seg000
+		assume ds:_TEXT
 		mov	di, 0CB44h
 		mov	ah, 3Fh	; '?'
 		mov	cx, 18h
@@ -30132,7 +30133,7 @@ loc_CEA8:
 		mov	es, ax
 		xor	di, di
 		lds	si, [bp+var_A]
-		assume ds:dseg
+		assume ds:DGROUP
 		add	cx, cx
 		add	cx, cx
 		add	cx, cx
@@ -30418,7 +30419,7 @@ loc_D064:
 		push	si
 		push	di
 		push	bp
-		mov	bp, seg	dseg
+		mov	bp, seg	DGROUP
 		mov	ds, bp
 		mov	bp, sp
 		sub	sp, 2
@@ -30481,7 +30482,7 @@ loc_D0D4:
 		push	si
 		push	di
 		push	bp
-		mov	bp, seg	dseg
+		mov	bp, seg	DGROUP
 		mov	ds, bp
 		mov	bp, sp
 		sub	sp, 2
@@ -30535,7 +30536,7 @@ loc_D12B:
 		push	si
 		push	di
 		push	bp
-		mov	bp, seg	dseg
+		mov	bp, seg	DGROUP
 		mov	ds, bp
 		mov	bp, sp
 		sub	sp, 2
@@ -30589,7 +30590,7 @@ loc_D182:
 		push	si
 		push	di
 		push	bp
-		mov	bp, seg	dseg
+		mov	bp, seg	DGROUP
 		mov	ds, bp
 		mov	bp, sp
 		sub	sp, 2
@@ -30643,7 +30644,7 @@ loc_D1D9:
 		push	si
 		push	di
 		push	bp
-		mov	bp, seg	dseg
+		mov	bp, seg	DGROUP
 		mov	ds, bp
 		mov	bp, sp
 		sub	sp, 2
@@ -30790,7 +30791,7 @@ loc_D2D3:
 ; ---------------------------------------------------------------------------
 
 loc_D2E3:
-		mov	ax, seg	seg000
+		mov	ax, seg	_TEXT
 		push	ax
 		mov	ax, 0D1E5h
 		push	ax
@@ -30803,7 +30804,7 @@ loc_D2EB:
 loc_D2F0:
 		cmp	[bp+sig], 8
 		jnz	short loc_D314
-		mov	ax, seg	seg000
+		mov	ax, seg	_TEXT
 		push	ax
 		mov	ax, 0D137h
 		push	ax		; isr
@@ -30811,7 +30812,7 @@ loc_D2F0:
 		push	ax		; interruptno
 		call	_setvect
 		add	sp, 6
-		mov	ax, seg	seg000
+		mov	ax, seg	_TEXT
 		push	ax
 		mov	ax, 0D18Eh
 		push	ax
@@ -30830,7 +30831,7 @@ loc_D314:
 		pop	cx
 		mov	word ptr dword_141DA+2,	dx
 		mov	word ptr dword_141DA, ax
-		mov	ax, seg	seg000
+		mov	ax, seg	_TEXT
 		push	ax
 		mov	ax, 0D079h
 		push	ax		; isr
@@ -30845,7 +30846,7 @@ loc_D314:
 loc_D349:
 		cmp	[bp+sig], 4
 		jnz	short loc_D361
-		mov	ax, seg	seg000
+		mov	ax, seg	_TEXT
 		push	ax
 		mov	ax, 0D0E0h
 		push	ax		; isr
@@ -32846,13 +32847,12 @@ loc_E0F7:
 sub_E013	endp
 
 ; ---------------------------------------------------------------------------
-seg000		ends
+_TEXT		ends
 
 ; ===========================================================================
 
 ; Segment type:	Pure data
-dseg		segment	para public 'DATA' use16
-		assume cs:dseg
+_DATA		segment	para public 'DATA' use16
 word_E100	dw 0
 word_E102	dw 0
 aNullCheck	db 'NULL CHECK',0
@@ -34304,6 +34304,10 @@ InitEnd		db    0
 		dw offset __freeio
 		db    0
 		db    0
+_DATA		ends
+
+_BSS	segment	word public 'BSS' use16
+
 bdata@		dw ?
 ; void *off_10240
 off_10240	dw ?
@@ -34445,16 +34449,14 @@ word_1420A	dw ?
 word_1420C	dw ?
 byte_1420E	db 4 dup(?)
 byte_14212	db 4 dup(?)
-dseg		ends
+_BSS		ends
 
 ; ===========================================================================
 
 ; Segment type:	Uninitialized
-seg002		segment	byte stack 'STACK' use16
-		assume cs:seg002
-		assume es:nothing, ss:nothing, ds:dseg,	fs:nothing, gs:nothing
+_STACK		segment	byte stack 'STACK' use16
 		db 80h dup(?)
-seg002		ends
+_STACK		ends
 
 
 		end start
