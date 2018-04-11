@@ -286,7 +286,7 @@ loc_356:
 loc_363:
 		mov	[bp+var_2], dx
 		mov	[bp+var_4], ax
-		cmp	word_F4EE, 0
+		cmp	flag_autodepend, 0
 		jz	short loc_3D3
 		mov	dx, [bp+var_6]
 		mov	ax, [bp+var_8]
@@ -445,7 +445,7 @@ loc_4C4:
 loc_4D1:
 		mov	[bp+var_2], dx
 		mov	[bp+var_4], ax
-		cmp	word_F4EE, 0
+		cmp	flag_autodepend, 0
 		jz	short loc_537
 		mov	dx, [bp+var_6]
 		mov	ax, [bp+var_8]
@@ -787,7 +787,7 @@ sub_74A		endp
 sub_78D		proc near
 		push	bp
 		mov	bp, sp
-		cmp	word_F50C, 0
+		cmp	flag_keep, 0
 		jz	short loc_7C1
 		cmp	word_F50E, 0
 		jz	short loc_7CA
@@ -1404,7 +1404,7 @@ arg_E		= word ptr  12h
 		mov	word ptr [bp+var_4], ax
 		xor	si, si
 		les	bx, [bp+arg_4]
-		mov	ax, word_F506
+		mov	ax, flag_silent
 		mov	es:[bx], ax
 		les	bx, [bp+arg_8]
 		mov	word ptr es:[bx], 0
@@ -1506,7 +1506,7 @@ loc_D48:
 ; ---------------------------------------------------------------------------
 
 loc_D4F:
-		cmp	word_F4F6, 0
+		cmp	flag_ignore, 0
 		jz	short loc_D63
 		les	bx, [bp+arg_8]
 		mov	word ptr es:[bx], 7FFFh
@@ -1589,7 +1589,7 @@ loc_DB8:
 loc_DC9:
 		cmp	word_F4FC, 0
 		jz	short loc_DD7
-		cmp	word_F50C, 0
+		cmp	flag_keep, 0
 		jz	short loc_DEA
 
 loc_DD7:
@@ -1754,7 +1754,7 @@ loc_F3F:
 		jle	short loc_FAA
 
 loc_F48:
-		cmp	word_F50C, 0
+		cmp	flag_keep, 0
 		jz	short loc_F76
 		cmp	word_F50E, 0
 		jz	short loc_F7E
@@ -1893,7 +1893,7 @@ loc_1060:
 ; ---------------------------------------------------------------------------
 
 loc_1077:
-		cmp	word_F50C, 0
+		cmp	flag_keep, 0
 		jz	short loc_10A5
 		cmp	word_F50E, 0
 		jz	short loc_10AD
@@ -2429,7 +2429,7 @@ loc_1448:
 		add	ax, dx
 		mov	bx, ax
 		mov	byte ptr ss:[bx], 0
-		cmp	word_F4F2, 0
+		cmp	flag_cacheautodepend, 0
 		jz	short loc_14B7
 		push	ss
 		lea	ax, [bp+@@dest]
@@ -3253,7 +3253,7 @@ loc_1A82:
 		push	offset asc_E2BB	; " "
 		push	ds
 		push	offset word_E29A ; __int32
-		push	word_F506	; int
+		push	flag_silent	; int
 		call	sub_88B
 		mov	si, ax
 		or	si, si
@@ -4120,7 +4120,7 @@ loc_20BB:
 		call	sub_33BC
 
 loc_20CF:
-		cmp	word_F510, 0
+		cmp	flag_swap, 0
 		jz	short loc_20F3
 		mov	ax, word ptr __heaptop+2
 		sub	ax, __psp
@@ -4520,7 +4520,7 @@ sub_22E0	endp
 sub_237C	proc near
 		push	bp
 		mov	bp, sp
-		cmp	word_F506, 0
+		cmp	flag_silent, 0
 		jz	short loc_238B
 		mov	ax, 2Bh	; '+'
 		jmp	short loc_238E
@@ -4586,7 +4586,7 @@ loc_23DB:
 
 loc_23DE:
 		push	ax
-		cmp	word_F4F6, 0
+		cmp	flag_ignore, 0
 		jz	short loc_23EB
 		mov	ax, 2Bh	; '+'
 		jmp	short loc_23EE
@@ -4608,7 +4608,7 @@ loc_23FB:
 
 loc_23FE:
 		push	ax
-		cmp	word_F4F2, 0
+		cmp	flag_cacheautodepend, 0
 		jz	short loc_240B
 		mov	ax, 2Bh	; '+'
 		jmp	short loc_240E
@@ -4619,7 +4619,7 @@ loc_240B:
 
 loc_240E:
 		push	ax
-		cmp	word_F4EE, 0
+		cmp	flag_autodepend, 0
 		jz	short loc_241B
 		mov	ax, 2Bh	; '+'
 		jmp	short loc_241E
@@ -4630,7 +4630,7 @@ loc_241B:
 
 loc_241E:
 		push	ax
-		cmp	word_F510, 0
+		cmp	flag_swap, 0
 		jz	short loc_242B
 		mov	ax, 2Bh	; '+'
 		jmp	short loc_242E
@@ -4652,7 +4652,7 @@ loc_243B:
 
 loc_243E:
 		push	ax
-		cmp	word_F50C, 0
+		cmp	flag_keep, 0
 		jz	short loc_244B
 		mov	ax, 2Bh	; '+'
 		jmp	short loc_244E
@@ -7801,7 +7801,7 @@ loc_3CB3:
 		add	sp, 8
 		or	ax, ax
 		jnz	short loc_3CCE
-		mov	word_F4EE, si
+		mov	flag_autodepend, si
 		jmp	loc_3D4E
 ; ---------------------------------------------------------------------------
 
@@ -7814,7 +7814,7 @@ loc_3CCE:
 		add	sp, 8
 		or	ax, ax
 		jnz	short loc_3CE8
-		mov	word_F506, si
+		mov	flag_silent, si
 		jmp	short loc_3D4E
 ; ---------------------------------------------------------------------------
 
@@ -7827,7 +7827,7 @@ loc_3CE8:
 		add	sp, 8
 		or	ax, ax
 		jnz	short loc_3D02
-		mov	word_F510, si
+		mov	flag_swap, si
 		jmp	short loc_3D4E
 ; ---------------------------------------------------------------------------
 
@@ -7840,7 +7840,7 @@ loc_3D02:
 		add	sp, 8
 		or	ax, ax
 		jnz	short loc_3D1C
-		mov	word_F4F6, si
+		mov	flag_ignore, si
 		jmp	short loc_3D4E
 ; ---------------------------------------------------------------------------
 
@@ -7853,7 +7853,7 @@ loc_3D1C:
 		add	sp, 8
 		or	ax, ax
 		jnz	short loc_3D36
-		mov	word_F50C, si
+		mov	flag_keep, si
 		jmp	short loc_3D4E
 ; ---------------------------------------------------------------------------
 
@@ -7866,7 +7866,7 @@ loc_3D36:
 		add	sp, 8
 		or	ax, ax
 		jnz	short loc_3D53
-		mov	word_F4F2, si
+		mov	flag_cacheautodepend, si
 
 loc_3D4E:
 		mov	ax, 1
@@ -9251,7 +9251,7 @@ loc_478C:
 
 loc_4796:
 		les	bx, [bp+arg_0]
-		mov	al, byte ptr word_F50C
+		mov	al, byte ptr flag_keep
 		mov	es:[bx+1], al
 
 loc_47A0:
@@ -12027,7 +12027,7 @@ loc_5B52:
 		mov	[bp+var_24], ax
 		mov	[bp+var_1E], 0
 		mov	[bp+var_20], 0
-		cmp	word_F510, 0
+		cmp	flag_swap, 0
 		jz	short loc_5B88
 		push	word ptr [bp+@@path+2]
 		push	word ptr [bp+@@path]
@@ -18179,7 +18179,7 @@ loc_86F7:
 loc_870F:
 		cmp	word_F50E, 0
 		jz	short loc_871C
-		mov	word_F50C, 1
+		mov	flag_keep, 1
 
 loc_871C:
 		mov	word_F500, 1
@@ -18914,7 +18914,7 @@ loc_8BD5:
 loc_8BF1:
 		push	24h ; '$'
 		push	ds
-		push	offset word_F4EE
+		push	offset flag_autodepend
 		push	si
 		call	_write
 		add	sp, 8
@@ -21510,11 +21510,11 @@ word_F4E0	dw 0
 ; char a[]
 a@_0		db '!@#$%^&*()',0
 		align 2
-word_F4EE	dw 0
+flag_autodepend	dw 0
 word_F4F0	dw 0
-word_F4F2	dw 0
+flag_cacheautodepend	dw 0
 word_F4F4	dw 0
-word_F4F6	dw 0
+flag_ignore	dw 0
 unk_F4F8	db    0
 		db    0
 word_F4FA	dw 0
@@ -21523,13 +21523,13 @@ word_F4FE	dw 0
 word_F500	dw 0
 word_F502	dw 0
 word_F504	dw 0
-; int word_F506
-word_F506	dw 0
+; int flag_silent
+flag_silent	dw 0
 word_F508	dw 0
 word_F50A	dw 0
-word_F50C	dw 0
+flag_keep	dw 0
 word_F50E	dw 0
-word_F510	dw 0
+flag_swap	dw 0
 unk_F512	db  3Fh	; ?
 		db    0
 		db    0
@@ -21560,7 +21560,7 @@ unk_F512	db  3Fh	; ?
 		db    0
 		db    0
 		db    0
-		dd word_F50C
+		dd flag_keep
 		db  4Eh	; N
 		db    0
 		db    0
@@ -21570,7 +21570,7 @@ unk_F512	db  3Fh	; ?
 		db    0
 		db    0
 		db    0
-		dd word_F510
+		dd flag_swap
 		db  55h	; U
 		db    0
 		db    1
@@ -21591,7 +21591,7 @@ unk_F512	db  3Fh	; ?
 		db    0
 		db    0
 		db    0
-		dd word_F4EE
+		dd flag_autodepend
 		db  62h	; b
 		db    0
 		db    0
@@ -21601,7 +21601,7 @@ unk_F512	db  3Fh	; ?
 		db    0
 		db    0
 		db    0
-		dd word_F4F2
+		dd flag_cacheautodepend
 		db  64h	; d
 		db    0
 		db    1
@@ -21632,7 +21632,7 @@ unk_F512	db  3Fh	; ?
 		db    0
 		db    0
 		db    0
-		dd word_F4F6
+		dd flag_ignore
 		db  6Ch	; l
 		db    0
 		db    0
@@ -21672,7 +21672,7 @@ unk_F512	db  3Fh	; ?
 		db    0
 		db    0
 		db    0
-		dd word_F506
+		dd flag_silent
 		db  75h	; u
 		db    0
 		db    0
