@@ -31,14 +31,13 @@ date		ends
 
 ; ---------------------------------------------------------------------------
 
-ffblk		struc ;	(sizeof=0x2C, standard type)
+ffblk		struc ;	(sizeof=0x2B, standard type)
 ff_reserved	db 21 dup(?)
 ff_attrib	db ?
 ff_ftime	dw ?
 ff_fdate	dw ?
 ff_fsize	dd ?
 ff_name		db 13 dup(?)
-_padding	db ?
 ffblk		ends
 
 ; ---------------------------------------------------------------------------
@@ -11424,8 +11423,8 @@ sub_5695	proc near
 		push	ss
 		push	ax
 		push	ds
-		push	offset byte_E494
-		mov	cx, 2Bh	; '+'
+		push	offset ffblk_empty
+		mov	cx, size ffblk
 		call	N_SCOPY@
 		push	0		; attrib
 		push	ss
@@ -21053,7 +21052,7 @@ aMessage	db 'message',0
 aCmdswitches	db 'cmdswitches',0
 aS_5		db '%s',0Dh,0Ah,0
 		align 2
-byte_E494	db 2Bh dup(0)
+ffblk_empty	ffblk <0>
 ; char name[]
 _name		db 'PATH',0
 ; char asc_E4C4[]
