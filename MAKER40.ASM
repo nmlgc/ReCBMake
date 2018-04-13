@@ -165,8 +165,8 @@ var_C		= word ptr -0Ch
 var_A		= word ptr -0Ah
 var_8		= word ptr -8
 var_6		= word ptr -6
-var_4		= word ptr -4
-var_2		= word ptr -2
+mtime		= word ptr -4
+mdate		= word ptr -2
 arg_0		= word ptr  4
 arg_2		= dword	ptr  6
 
@@ -223,8 +223,8 @@ loc_2D8:
 		push	word ptr es:[bx+4]
 		push	0
 		call	sub_263
-		mov	[bp+var_2], dx
-		mov	[bp+var_4], ax
+		mov	[bp+mdate], dx
+		mov	[bp+mtime], ax
 		cmp	dx, [bp+var_6]
 		jb	short loc_306
 		ja	short loc_2FA
@@ -232,8 +232,8 @@ loc_2D8:
 		jbe	short loc_306
 
 loc_2FA:
-		mov	dx, [bp+var_2]
-		mov	ax, [bp+var_4]
+		mov	dx, [bp+mdate]
+		mov	ax, [bp+mtime]
 		mov	[bp+var_6], dx
 		mov	[bp+var_8], ax
 
@@ -280,19 +280,19 @@ loc_356:
 		les	bx, [bp+arg_2]
 		push	word ptr es:[bx+2]
 		push	word ptr es:[bx] ; path
-		call	sub_5695
+		call	mtime_get
 
 loc_363:
-		mov	[bp+var_2], dx
-		mov	[bp+var_4], ax
+		mov	[bp+mdate], dx
+		mov	[bp+mtime], ax
 		cmp	flag_autodepend, 0
 		jz	short loc_3D3
 		mov	dx, [bp+var_6]
 		mov	ax, [bp+var_8]
-		cmp	dx, [bp+var_2]
+		cmp	dx, [bp+mdate]
 		ja	short loc_3D3
 		jnz	short loc_382
-		cmp	ax, [bp+var_4]
+		cmp	ax, [bp+mtime]
 		ja	short loc_3D3
 
 loc_382:
@@ -328,20 +328,20 @@ loc_3C7:
 		mov	[bp+var_8], ax
 
 loc_3D3:
-		mov	ax, [bp+var_4]
-		or	ax, [bp+var_2]
+		mov	ax, [bp+mtime]
+		or	ax, [bp+mdate]
 		jz	short loc_402
 		mov	dx, [bp+var_6]
 		mov	ax, [bp+var_8]
-		cmp	dx, [bp+var_2]
+		cmp	dx, [bp+mdate]
 		ja	short loc_402
 		jnz	short loc_3ED
-		cmp	ax, [bp+var_4]
+		cmp	ax, [bp+mtime]
 		ja	short loc_402
 
 loc_3ED:
-		mov	ax, [bp+var_4]
-		or	ax, [bp+var_2]
+		mov	ax, [bp+mtime]
+		or	ax, [bp+mdate]
 		jnz	short loc_3F8
 		jmp	loc_65D
 ; ---------------------------------------------------------------------------
@@ -404,15 +404,15 @@ loc_46A:
 		push	word ptr [bp+var_14+2]
 		push	word ptr [bp+var_14]
 		call	sub_1327
-		mov	[bp+var_2], dx
-		mov	[bp+var_4], ax
-		or	ax, [bp+var_2]
+		mov	[bp+mdate], dx
+		mov	[bp+mtime], ax
+		or	ax, [bp+mdate]
 		jnz	short loc_492
 		jmp	loc_5D2
 ; ---------------------------------------------------------------------------
 
 loc_492:
-		mov	ax, [bp+var_4]
+		mov	ax, [bp+mtime]
 		cmp	dx, [bp+var_6]
 		jb	short loc_4AD
 		ja	short loc_4A1
@@ -420,8 +420,8 @@ loc_492:
 		jbe	short loc_4AD
 
 loc_4A1:
-		mov	dx, [bp+var_2]
-		mov	ax, [bp+var_4]
+		mov	dx, [bp+mdate]
+		mov	ax, [bp+mtime]
 		mov	[bp+var_6], dx
 		mov	[bp+var_8], ax
 
@@ -439,19 +439,19 @@ loc_4C4:
 		les	bx, [bp+arg_2]
 		push	word ptr es:[bx+2]
 		push	word ptr es:[bx] ; path
-		call	sub_5695
+		call	mtime_get
 
 loc_4D1:
-		mov	[bp+var_2], dx
-		mov	[bp+var_4], ax
+		mov	[bp+mdate], dx
+		mov	[bp+mtime], ax
 		cmp	flag_autodepend, 0
 		jz	short loc_537
 		mov	dx, [bp+var_6]
 		mov	ax, [bp+var_8]
-		cmp	dx, [bp+var_2]
+		cmp	dx, [bp+mdate]
 		ja	short loc_537
 		jnz	short loc_4F0
-		cmp	ax, [bp+var_4]
+		cmp	ax, [bp+mtime]
 		ja	short loc_537
 
 loc_4F0:
@@ -486,15 +486,15 @@ loc_52B:
 loc_537:
 		mov	dx, [bp+var_6]
 		mov	ax, [bp+var_8]
-		cmp	dx, [bp+var_2]
+		cmp	dx, [bp+mdate]
 		ja	short loc_558
 		jnz	short loc_549
-		cmp	ax, [bp+var_4]
+		cmp	ax, [bp+mtime]
 		ja	short loc_558
 
 loc_549:
-		mov	ax, [bp+var_4]
-		or	ax, [bp+var_2]
+		mov	ax, [bp+mtime]
+		or	ax, [bp+mdate]
 		jz	short loc_5C7
 		cmp	word_F50A, 0
 		jz	short loc_5C7
@@ -582,12 +582,12 @@ loc_60D:
 		les	bx, [bp+arg_2]
 		push	word ptr es:[bx+2]
 		push	word ptr es:[bx] ; path
-		call	sub_5695
+		call	mtime_get
 
 loc_61A:
-		mov	[bp+var_2], dx
-		mov	[bp+var_4], ax
-		or	ax, [bp+var_2]
+		mov	[bp+mdate], dx
+		mov	[bp+mtime], ax
+		or	ax, [bp+mdate]
 		jnz	short loc_65D
 		les	bx, [bp+arg_2]
 		mov	ax, es:[bx+14h]
@@ -621,8 +621,8 @@ loc_655:
 
 loc_65D:
 		les	bx, [bp+arg_2]
-		mov	dx, [bp+var_2]
-		mov	ax, [bp+var_4]
+		mov	dx, [bp+mdate]
+		mov	ax, [bp+mtime]
 		mov	es:[bx+20h], dx
 		mov	es:[bx+1Eh], ax
 		leave
@@ -2448,7 +2448,7 @@ loc_1499:
 		push	ss
 		lea	ax, [bp+@@dest]
 		push	ax		; path
-		call	sub_5695
+		call	mtime_get
 		mov	[bp+var_4], dx
 		mov	word ptr [bp+var_8+2], ax
 		push	ss
@@ -2464,7 +2464,7 @@ loc_14B7:
 		push	ss
 		lea	ax, [bp+@@dest]
 		push	ax		; path
-		call	sub_5695
+		call	mtime_get
 
 loc_14C0:
 		mov	[bp+var_4], dx
@@ -2883,8 +2883,8 @@ sub_1689	endp
 
 sub_1793	proc near
 
-var_14		= word ptr -14h
-var_12		= word ptr -12h
+mtime		= word ptr -14h
+mdate		= word ptr -12h
 @@src		= dword	ptr -10h
 var_C		= dword	ptr -0Ch
 @@s		= dword	ptr -8
@@ -3033,12 +3033,12 @@ loc_18DE:
 		les	bx, [bp+arg_0]
 		push	word ptr es:[bx+2]
 		push	word ptr es:[bx] ; path
-		call	sub_5695
+		call	mtime_get
 
 loc_18EB:
-		mov	[bp+var_12], dx
-		mov	[bp+var_14], ax
-		or	ax, [bp+var_12]
+		mov	[bp+mdate], dx
+		mov	[bp+mtime], ax
+		or	ax, [bp+mdate]
 		jz	short loc_190B
 		push	ds
 		push	offset DGROUP:byte_10297 ; s
@@ -11410,10 +11410,10 @@ sub_5678	endp
 
 ; =============== S U B	R O U T	I N E =======================================
 
-; Attributes: bp-based frame
+; Returns date in DX, time in AX.
 
-; int __stdcall	sub_5695(char *path)
-sub_5695	proc near
+; __int32 __stdcall	mtime_get(char *path)
+mtime_get	proc near
 
 @@ffblk		= ffblk	ptr -2Ch
 @@path		= dword	ptr  4
@@ -11449,7 +11449,7 @@ loc_56C7:
 		adc	dx, 0
 		leave
 		retn	4
-sub_5695	endp
+mtime_get	endp
 
 
 ; =============== S U B	R O U T	I N E =======================================
@@ -12841,7 +12841,7 @@ loc_614B:
 		les	bx, dword_102E8
 		push	word ptr es:[bx+2]
 		push	word ptr es:[bx] ; path
-		call	sub_5695
+		call	mtime_get
 
 loc_6159:
 		les	bx, dword_102E8
