@@ -2,6 +2,26 @@ Runtime-less disassembly of Borland's `MAKER.EXE`, version 4.0, bundled with
 Turbo Assembler 5.0, created to figure out why the hell autodependencies aren't
 working as I would expect.
 
+## So, why didn't they work?
+Or rather, how *are* they supposed to work. Here's a minimal working example,
+assuming that there is a `autodept.c` file in the same directory:
+
+```Makefile
+.autodepend
+
+autodept.com: autodept.obj
+	$(CC) -mt -lt $**
+```
+
+And this *does* allow you to change `autodept.c` or any file `#include`d in it,
+and re-running `make` will rebuild both `autodept.com` and `autodept.obj`.
+
+Note how you absolutely have to list the `.obj` file in the dependency list.
+Borland MAKE is *not* smart enough to realize that commands might produce .obj
+files with autodependency information for `.c`/`.cpp`/`.asm` dependencies as a
+byproduct.
+
+## Building
 You will need the following to compile this back into the original binary:
 
 * Borland C++ 5.01.
