@@ -17948,7 +17948,7 @@ loc_854F:
 loc_8555:
 		mov	[bp+var_2], dx
 		mov	cx, 5		; switch 5 cases
-		mov	bx, offset byte_85FB
+		mov	bx, offset word_85FB
 
 loc_855E:
 		mov	ax, cs:[bx]
@@ -17962,18 +17962,28 @@ loc_855E:
 loc_856D:
 		jmp	word ptr cs:[bx+0Ah] ; switch jump
 ; ---------------------------------------------------------------------------
+
+loc_8571:
 		mov	ax, 9
 		jmp	loc_85F6
 ; ---------------------------------------------------------------------------
+
+loc_8577:
 		mov	ax, 0Ah
 		jmp	short loc_85F6
 ; ---------------------------------------------------------------------------
+
+loc_857C:
 		mov	ax, 8
 		jmp	short loc_85F6
 ; ---------------------------------------------------------------------------
+
+loc_8581:
 		mov	ax, 0Dh
 		jmp	short loc_85F6
 ; ---------------------------------------------------------------------------
+
+loc_8586:
 		mov	ax, 0Ch
 		jmp	short loc_85F6
 ; ---------------------------------------------------------------------------
@@ -18044,9 +18054,8 @@ loc_85F6:
 sub_8513	endp
 
 ; ---------------------------------------------------------------------------
-byte_85FB	db 62h,	0, 66h,	0, 6Eh,	0, 72h,	0, 74h,	0, 7Ch,	85h, 86h
-
-		db 85h,	77h, 85h, 81h, 85h, 71h, 85h
+word_85FB	dw 'b', 'f', 'n', 'r', 't'
+	dw loc_857C, loc_8586, loc_8577, loc_8581, loc_8571
 
 ; =============== S U B	R O U T	I N E =======================================
 
@@ -19319,7 +19328,7 @@ loc_8E81:
 		cbw
 		mov	[bp+var_10], ax
 		mov	cx, 4		; switch 4 cases
-		mov	bx, offset byte_9066
+		mov	bx, offset word_9066
 
 loc_8E91:
 		mov	ax, cs:[bx]
@@ -19333,6 +19342,8 @@ loc_8E91:
 loc_8EA1:
 		jmp	word ptr cs:[bx+8] ; switch jump
 ; ---------------------------------------------------------------------------
+
+loc_8EA5:
 		or	si, si
 		jz	short loc_8EBA
 		add	word ptr [bp+arg_4], 4
@@ -19442,6 +19453,8 @@ loc_8F6F:
 		jnz	short loc_8F5C
 		jmp	loc_9053
 ; ---------------------------------------------------------------------------
+
+loc_8F7B:
 		or	si, si
 		jz	short loc_8F90
 		add	word ptr [bp+arg_4], 4
@@ -19509,6 +19522,8 @@ loc_8FF5:
 		jnz	short loc_8FE2
 		jmp	short loc_9053
 ; ---------------------------------------------------------------------------
+
+loc_9000:
 		mov	es, word ptr [bp+arg_4+2]
 		add	word ptr [bp+arg_4], 2
 		mov	bx, word ptr [bp+arg_4]
@@ -19520,6 +19535,8 @@ loc_900E:
 		add	sp, 4
 		jmp	short loc_9053
 ; ---------------------------------------------------------------------------
+
+loc_9018:
 		add	word ptr [bp+arg_4], 4
 		les	bx, [bp+arg_4]
 		mov	dx, es:[bx-2]
@@ -19565,9 +19582,8 @@ sub_8E2E	endp ; sp-analysis failed
 
 ; ---------------------------------------------------------------------------
 		db  0
-byte_9066	db 63h,	0, 64h,	0, 73h,	0, 78h,	2 dup(0), 90h, 0A5h, 8Eh
-
-		db 18h,	90h, 7Bh, 8Fh
+word_9066	dw 'c', 'd', 's', 'x'
+	dw loc_9000, loc_8EA5, loc_9018, loc_8F7B
 
 ; =============== S U B	R O U T	I N E =======================================
 
@@ -19702,7 +19718,7 @@ loc_914B:
 		cbw
 		mov	[bp+var_6], ax
 		mov	cx, 7		; switch 7 cases
-		mov	bx, offset byte_922B
+		mov	bx, offset word_922B
 
 loc_915E:
 		mov	ax, cs:[bx]
@@ -19715,9 +19731,9 @@ loc_915E:
 
 loc_916D:
 		jmp	word ptr cs:[bx+0Eh] ; switch jump
-sub_90B3	endp
-
 ; ---------------------------------------------------------------------------
+
+loc_9171:
 		or	di, di
 		jnz	short loc_914B	; default
 		test	si, 2
@@ -19731,6 +19747,8 @@ sub_90B3	endp
 		call	sub_9076
 		jmp	short loc_914B	; default
 ; ---------------------------------------------------------------------------
+
+loc_9191:
 		or	di, di
 		jz	short loc_91BA
 		inc	word ptr [bp-4]
@@ -19779,6 +19797,8 @@ loc_91CE:
 loc_91F4:
 		jmp	short loc_9203
 ; ---------------------------------------------------------------------------
+
+loc_91F6:
 		or	di, di
 		jz	short loc_91FD
 		jmp	loc_914B	; default
@@ -19812,11 +19832,10 @@ loc_9225:
 		pop	si
 		leave
 		retn
+sub_90B3	endp
 ; ---------------------------------------------------------------------------
-byte_922B	db 2 dup(0), 2Ah, 0, 2Eh, 0, 2Fh, 0, 3Ah, 0, 3Fh, 0, 5Ch
-
-		db 0, 2	dup(91h), 0F6h,	91h, 71h, 91h, 0BAh, 3 dup(91h)
-		db 0F6h, 91h, 0BAh, 91h
+word_922B	dw 0, '*', '.', '/', ':', '?', '\'
+	dw loc_9191, loc_91F6, loc_9171, loc_91BA, loc_9191, loc_91F6, loc_91BA
 
 ; =============== S U B	R O U T	I N E =======================================
 
