@@ -3935,8 +3935,8 @@ _main		proc near
 		mov	word ptr [bp+@@src], ax
 		mov	dx, word ptr [bp+@@envp+2]
 		mov	ax, word ptr [bp+@@envp]
-		mov	word_10754, dx
-		mov	env, ax
+		mov	word ptr [env+2], dx
+		mov	word ptr [env], ax
 		call	sub_5D5D
 		push	ds
 		push	offset a__make__ ; "__MAKE__"
@@ -12035,8 +12035,8 @@ loc_5B52:
 ; ---------------------------------------------------------------------------
 
 loc_5B88:
-		mov	dx, word_10754
-		mov	ax, env
+		mov	dx, word ptr [env+2]
+		mov	ax, word ptr [env]
 		mov	word ptr [bp+var_18+2],	dx
 		mov	word ptr [bp+var_18], ax
 		jmp	short loc_5B9B
@@ -12050,8 +12050,8 @@ loc_5B9B:
 		mov	ax, es:[bx]
 		or	ax, es:[bx+2]
 		jnz	short loc_5B97
-		push	word_10754
-		push	env		; env
+		push	word ptr [env+2]
+		push	word ptr [env]		; env
 		push	ss
 		lea	ax, [bp+@@argv]
 		push	ax		; argv
@@ -12277,8 +12277,8 @@ var_6		= dword	ptr -6
 
 		enter	6, 0
 		mov	word ptr [bp+var_6], 0
-		mov	dx, word_10754
-		mov	ax, env
+		mov	dx, word ptr [env+2]
+		mov	ax, word ptr [env]
 		mov	[bp-2],	dx
 		mov	word ptr [bp+var_6+2], ax
 		jmp	short loc_5D94
@@ -21761,8 +21761,7 @@ _offset		dw ?
 word_10350	dw ?
 byte_10352	db 400h	dup(?)
 ; char **env
-env		dw ?
-word_10754	dw ?
+env		dd ?
 dword_10756	dd ?
 dword_1075A	dd ?
 word_1075E	dw ?
