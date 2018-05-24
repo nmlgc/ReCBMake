@@ -1669,19 +1669,19 @@ loc_E73:
 		inc	ax
 		push	word ptr [bp+block+2]
 		push	ax		; s
-		call	sub_894C
+		call	_strdup_report
 		mov	[bp+var_1C], dx
 		mov	[bp+var_1E], ax
 		mov	ax, word ptr [bp+var_16]
 		inc	ax
 		push	word ptr [bp+var_16+2]
 		push	ax		; s
-		call	sub_894C
+		call	_strdup_report
 		mov	word ptr [bp+var_16+2],	dx
 		mov	word ptr [bp+var_16], ax
 		push	word ptr [bp+@@s+2]
 		push	word ptr [bp+@@s]	; s
-		call	sub_894C
+		call	_strdup_report
 		mov	word ptr [bp+block+2], dx
 		mov	word ptr [bp+block], ax
 		mov	dx, [bp+var_1C]
@@ -2300,7 +2300,7 @@ loc_138A:
 		call	sub_11AF
 		push	dx
 		push	ax		; s
-		call	sub_894C
+		call	_strdup_report
 		push	dx
 		push	ax		; s
 		push	word ptr off_E3C0+2
@@ -2956,7 +2956,7 @@ loc_17D3:
 loc_1835:
 		push	word ptr [bp+@@s+2]
 		push	word ptr [bp+@@s]	; s
-		call	sub_894C
+		call	_strdup_report
 		les	bx, [bp+arg_0]
 		mov	es:[bx+2], dx
 		mov	es:[bx], ax
@@ -3042,7 +3042,7 @@ loc_18EB:
 		jz	short loc_190B
 		push	ds
 		push	offset DGROUP:byte_10297 ; s
-		call	sub_894C
+		call	_strdup_report
 		les	bx, [bp+arg_0]
 		mov	es:[bx+2], dx
 		mov	es:[bx], ax
@@ -4352,7 +4352,7 @@ loc_224E:
 loc_2252:
 		push	word ptr [bp+@@s+2] ; jumptable 0000224E case 73
 		push	word ptr [bp+@@s]	; s
-		call	sub_894C
+		call	_strdup_report
 		push	dx
 		push	ax		; s
 		call	sub_2A04
@@ -4409,7 +4409,7 @@ loc_2293:
 loc_22B8:
 		push	word ptr [bp+@@s+2]
 		push	word ptr [bp+@@s]	; s
-		call	sub_894C
+		call	_strdup_report
 		mov	word ptr off_E332+2, dx
 		mov	word ptr off_E332, ax
 
@@ -5066,7 +5066,7 @@ loc_276E:
 		add	ax, si
 		inc	ax
 		push	ax		; size
-		call	sub_5296
+		call	_malloc_report
 		mov	word ptr [bp+@@dest+2], dx
 		mov	word ptr [bp+@@dest], ax
 		push	word ptr [bp+@@s+2]
@@ -5190,7 +5190,7 @@ loc_285A:
 		add	dx, ax
 		add	dx, 0Ch
 		push	dx		; size
-		call	sub_5296
+		call	_malloc_report
 		mov	word ptr [bp+var_4+2], dx
 		mov	word ptr [bp+var_4], ax
 		push	word ptr [bp+@@s1+2]
@@ -5382,7 +5382,7 @@ var_4		= dword	ptr -4
 
 		enter	4, 0
 		push	0Ah		; size
-		call	sub_5296
+		call	_malloc_report
 		mov	word ptr [bp+var_4+2], dx
 		mov	word ptr [bp+var_4], ax
 		push	word ptr [bp+@@s+2]
@@ -5809,7 +5809,7 @@ loc_2D1E:
 
 loc_2D29:
 		push	28h ; '('       ; size
-		call	sub_5296
+		call	_malloc_report
 		mov	word ptr [bp+var_4+2], dx
 		mov	word ptr [bp+var_4], ax
 		les	bx, [bp+var_4]
@@ -6063,7 +6063,7 @@ loc_2FA0:
 
 loc_2FB1:
 		push	14h		; size
-		call	sub_5296
+		call	_malloc_report
 		mov	word ptr [bp+var_4+2], dx
 		mov	word ptr [bp+var_4], ax
 		les	bx, [bp+var_4]
@@ -6172,7 +6172,7 @@ loc_30AD:
 		or	ax, word ptr [bp+var_4+2]
 		jnz	short loc_3138
 		push	12h		; size
-		call	sub_5296
+		call	_malloc_report
 		mov	word ptr [bp+var_4+2], dx
 		mov	word ptr [bp+var_4], ax
 		les	bx, [bp+var_4]
@@ -6264,7 +6264,7 @@ loc_3188:
 		or	ax, word ptr [bp+var_4+2]
 		jnz	short loc_315D
 		push	8		; size
-		call	sub_5296
+		call	_malloc_report
 		mov	word ptr [bp+var_4+2], dx
 		mov	word ptr [bp+var_4], ax
 		les	bx, [bp+var_4]
@@ -6314,7 +6314,7 @@ arg_8		= dword	ptr  0Ch
 
 		enter	4, 0
 		push	10h		; size
-		call	sub_5296
+		call	_malloc_report
 		mov	word ptr [bp+var_4+2], dx
 		mov	word ptr [bp+var_4], ax
 		les	bx, [bp+var_4]
@@ -6472,7 +6472,7 @@ arg_2		= word ptr  6
 		add	sp, 4
 		add	ax, 9
 		push	ax		; size
-		call	sub_5296
+		call	_malloc_report
 		mov	word ptr [bp+var_4+2], dx
 		mov	word ptr [bp+var_4], ax
 		push	word ptr [bp+@@s+2]
@@ -6602,7 +6602,7 @@ loc_340A:
 		call	sub_1D9C
 		mov	si, ax
 		push	ax
-		call	sub_446D
+		call	_isspace
 		or	ax, ax
 		jz	short loc_341C
 		mov	di, 1
@@ -7047,7 +7047,7 @@ loc_3718:
 		push	offset a__0	; "."
 
 loc_371C:
-		call	sub_894C
+		call	_strdup_report
 		mov	word ptr [bp+@@s2+2], dx
 		mov	word ptr [bp+@@s2], ax
 
@@ -7171,7 +7171,7 @@ loc_381B:
 		push	offset a__0	; "."
 
 loc_381F:
-		call	sub_894C
+		call	_strdup_report
 		mov	[bp+var_10+2], dx
 		mov	[bp+var_10], ax
 		inc	word ptr [bp+var_4]
@@ -7272,7 +7272,7 @@ loc_38C6:
 		jnz	short loc_38E2
 		push	ds
 		push	offset byte_E3DA ; s
-		call	sub_894C
+		call	_strdup_report
 		mov	word ptr [bp+@@s2+2], dx
 		mov	word ptr [bp+@@s2], ax
 
@@ -7282,14 +7282,14 @@ loc_38E2:
 		jnz	short loc_38F7
 		push	ds
 		push	offset byte_E3DA ; s
-		call	sub_894C
+		call	_strdup_report
 		mov	[bp+var_10+2], dx
 		mov	[bp+var_10], ax
 
 loc_38F7:
 		push	word ptr [bp+@@s+2]
 		push	word ptr [bp+@@s]	; s
-		call	sub_894C
+		call	_strdup_report
 		push	dx
 		push	ax		; s2
 		call	sub_306C
@@ -7297,7 +7297,7 @@ loc_38F7:
 		push	ax		; __int32
 		push	word ptr [bp+@@s1+2]
 		push	word ptr [bp+@@s1] ; s
-		call	sub_894C
+		call	_strdup_report
 		push	dx
 		push	ax		; s2
 		call	sub_306C
@@ -7500,7 +7500,7 @@ loc_3A6B:
 		mov	byte ptr es:[bx], 0
 		push	word ptr [bp+@@s+2]
 		push	word ptr [bp+@@s]	; s
-		call	sub_894C
+		call	_strdup_report
 		push	dx
 		push	ax		; s2
 		call	sub_306C
@@ -7508,7 +7508,7 @@ loc_3A6B:
 		push	ax
 		push	[bp+var_6]
 		push	[bp+var_8]	; s
-		call	sub_894C
+		call	_strdup_report
 		mov	[bp+var_6], dx
 		mov	[bp+var_8], ax
 		push	dx
@@ -7520,7 +7520,7 @@ loc_3A6B:
 		add	sp, 4
 		add	ax, 7
 		push	ax		; size
-		call	sub_5296
+		call	_malloc_report
 		mov	word ptr [bp+@@name+2], dx
 		mov	word ptr [bp+@@name], ax
 		push	word ptr [bp+@@s1+2]
@@ -7632,7 +7632,7 @@ loc_3B69:
 loc_3B79:
 		push	word ptr [bp+@@s+2]
 		push	word ptr [bp+@@s]	; s
-		call	sub_894C
+		call	_strdup_report
 		push	dx
 		push	ax		; s
 		push	ds
@@ -7745,7 +7745,7 @@ loc_3C45:
 loc_3C55:
 		push	word ptr [bp+@@s+2]
 		push	word ptr [bp+@@s]	; s
-		call	sub_894C
+		call	_strdup_report
 		push	dx
 		push	ax		; s2
 		call	sub_306C
@@ -8093,17 +8093,17 @@ arg_6		= word ptr  0Ah
 		push	[bp+arg_4]
 		push	word ptr [bp+@@src+2]
 		push	word ptr [bp+@@src] ; s
-		call	sub_894C
+		call	_strdup_report
 		push	dx
 		push	ax		; s
 		push	[bp+var_2]
 		push	[bp+var_4]	; s
-		call	sub_894C
+		call	_strdup_report
 		push	dx
 		push	ax		; s2
 		push	ds
 		push	offset byte_E3DA ; s
-		call	sub_894C
+		call	_strdup_report
 		push	dx
 		push	ax		; __int32
 		push	1		; int
@@ -8165,17 +8165,17 @@ loc_3F1D:
 		push	ss
 		lea	ax, [bp+@@s]
 		push	ax		; s
-		call	sub_894C
+		call	_strdup_report
 		push	dx
 		push	ax		; s
 		push	[bp+var_2]
 		push	[bp+var_4]	; s
-		call	sub_894C
+		call	_strdup_report
 		push	dx
 		push	ax		; s2
 		push	ds
 		push	offset byte_E3DA ; s
-		call	sub_894C
+		call	_strdup_report
 		push	dx
 		push	ax		; __int32
 		push	1		; int
@@ -8366,17 +8366,17 @@ loc_40C3:
 		push	[bp+arg_2]	; s
 
 loc_40C9:
-		call	sub_894C
+		call	_strdup_report
 		push	dx
 		push	ax		; s
 		push	ds
 		push	offset byte_E3DA ; s
-		call	sub_894C
+		call	_strdup_report
 		push	dx
 		push	ax		; s2
 		push	ds
 		push	offset byte_E3DA ; s
-		call	sub_894C
+		call	_strdup_report
 		push	dx
 		push	ax		; __int32
 		push	si		; int
@@ -8448,17 +8448,17 @@ loc_417C:
 		inc	word ptr [bp+var_18]
 		push	[bp+arg_4]
 		push	[bp+arg_2]	; s
-		call	sub_894C
+		call	_strdup_report
 		push	dx
 		push	ax		; s
 		push	ds
 		push	offset byte_E3DA ; s
-		call	sub_894C
+		call	_strdup_report
 		push	dx
 		push	ax		; s2
 		push	ds
 		push	offset byte_E3DA ; s
-		call	sub_894C
+		call	_strdup_report
 		push	dx
 		push	ax		; __int32
 		push	si		; int
@@ -8581,19 +8581,19 @@ loc_4296:
 		push	[bp+var_8]
 		push	word ptr [bp+@@s+2]
 		push	word ptr [bp+@@s]	; s
-		call	sub_894C
+		call	_strdup_report
 
 loc_42A5:
 		push	dx
 		push	ax		; s
 		push	[bp+var_E]
 		push	[bp+var_10]	; s
-		call	sub_894C
+		call	_strdup_report
 		push	dx
 		push	ax		; s2
 		push	[bp+var_12]
 		push	[bp+var_14]	; s
-		call	sub_894C
+		call	_strdup_report
 		push	dx
 		push	ax		; __int32
 		push	1		; int
@@ -8683,7 +8683,7 @@ loc_434B:
 
 loc_435F:
 		push	si
-		call	sub_446D
+		call	_isspace
 		or	ax, ax
 		jnz	short loc_436A
 		jmp	loc_4460
@@ -8822,29 +8822,29 @@ sub_4328	endp
 
 ; Attributes: bp-based frame
 
-sub_446D	proc near
+; int __pascal isspace(int c)
+_isspace	proc near
 
-arg_0		= word ptr  4
+@@c		= word ptr  4
 
 		push	bp
 		mov	bp, sp
-		mov	dx, [bp+arg_0]
-		cmp	dx, 20h	; ' '
-		jz	short loc_447D
+		mov	dx, [bp+@@c]
+		cmp	dx, ' '
+		jz	short @@yes
 		cmp	dx, 9
-		jnz	short loc_4484
+		jnz	short @@no
 
-loc_447D:
+@@yes:
 		mov	ax, 1
 		pop	bp
 		retn	2
-; ---------------------------------------------------------------------------
 
-loc_4484:
+@@no:
 		xor	ax, ax
 		pop	bp
 		retn	2
-sub_446D	endp
+_isspace	endp
 
 
 ; =============== S U B	R O U T	I N E =======================================
@@ -8890,7 +8890,7 @@ var_2		= word ptr -2
 		inc	word_E3D6
 		push	ds
 		push	offset aMake_0	; "MAKE"
-		call	sub_894C
+		call	_strdup_report
 		mov	[bp+var_2], dx
 		mov	[bp+var_4], ax
 		mov	dx, [bp+var_2]
@@ -8997,7 +8997,7 @@ arg_0		= dword	ptr  4
 		or	ax, ax
 		jz	short loc_459C
 		push	0Eh		; size
-		call	sub_5296
+		call	_malloc_report
 		mov	word ptr [bp+arg_0+2], dx
 		mov	word ptr [bp+arg_0], ax
 		les	bx, [bp+arg_0]
@@ -9031,7 +9031,7 @@ loc_45B7:
 		add	sp, 4
 		inc	ax
 		push	ax		; size
-		call	sub_5296
+		call	_malloc_report
 		mov	word ptr [bp+block+2], dx
 		mov	word ptr [bp+block], ax
 		push	ds
@@ -9082,12 +9082,12 @@ loc_4632:
 
 loc_463B:
 		push	8		; size
-		call	sub_5296
+		call	_malloc_report
 		mov	word ptr [bp+var_1C+2],	dx
 		mov	word ptr [bp+var_1C], ax
 		push	word ptr [bp+@@s+2]
 		push	word ptr [bp+@@s]	; s
-		call	sub_894C
+		call	_strdup_report
 		les	bx, [bp+var_1C]
 		mov	es:[bx+6], dx
 		mov	es:[bx+4], ax
@@ -9288,7 +9288,7 @@ arg_2		= word ptr  6
 		mov	word ptr [bp+@@s], ax
 		mov	[bp+var_E], 0
 		push	0Eh		; size
-		call	sub_5296
+		call	_malloc_report
 		mov	word ptr [bp+var_4+2], dx
 		mov	word ptr [bp+var_4], ax
 		call	sub_448A
@@ -9340,7 +9340,7 @@ loc_482D:
 		add	sp, 4
 		inc	ax
 		push	ax		; size
-		call	sub_5296
+		call	_malloc_report
 		mov	word ptr [bp+block+2], dx
 		mov	word ptr [bp+block], ax
 		push	ds
@@ -9399,12 +9399,12 @@ loc_48AE:
 		push	ax
 		call	sub_743F
 		push	8		; size
-		call	sub_5296
+		call	_malloc_report
 		mov	word ptr [bp+var_12+2],	dx
 		mov	word ptr [bp+var_12], ax
 		push	word ptr [bp+@@s+2]
 		push	word ptr [bp+@@s]	; s
-		call	sub_894C
+		call	_strdup_report
 		les	bx, [bp+var_12]
 		mov	es:[bx+6], dx
 		mov	es:[bx+4], ax
@@ -9513,7 +9513,7 @@ loc_499B:
 		mov	[bp+var_8], ax
 		push	dx
 		push	ax		; s
-		call	sub_894C
+		call	_strdup_report
 		mov	[bp+var_6], dx
 		mov	[bp+var_8], ax
 		push	[bp+arg_2]
@@ -10080,7 +10080,7 @@ var_4		= dword	ptr -4
 		call	_strlwr
 		add	sp, 4
 		push	0Ch		; size
-		call	sub_5296
+		call	_malloc_report
 		mov	word ptr dword_E3C4+2, dx
 		mov	word ptr dword_E3C4, ax
 		les	bx, dword_E3C4
@@ -10146,7 +10146,7 @@ loc_4E2E:
 		or	ax, word ptr [bp+var_4+2]
 		jnz	short loc_4DCA
 		push	0Ch		; size
-		call	sub_5296
+		call	_malloc_report
 		mov	word ptr [bp+var_4+2], dx
 		mov	word ptr [bp+var_4], ax
 		les	bx, [bp+var_4]
@@ -10270,7 +10270,7 @@ loc_4F23:
 		add	sp, 8
 		push	ds
 		push	offset DGROUP:byte_1385A ; s
-		call	sub_894C
+		call	_strdup_report
 		push	dx
 		push	ax		; s
 		call	sub_4D5C
@@ -10353,7 +10353,7 @@ loc_4FDF:
 		add	sp, 4
 		inc	ax
 		push	ax		; size
-		call	sub_5296
+		call	_malloc_report
 		mov	word ptr [bp+@@s+2], dx
 		mov	word ptr [bp+@@s], ax
 		push	ds
@@ -10504,7 +10504,7 @@ arg_0		= word ptr  4
 
 		enter	4, 0
 		push	8		; size
-		call	sub_5296
+		call	_malloc_report
 		mov	word ptr [bp+var_4+2], dx
 		mov	word ptr [bp+var_4], ax
 		les	bx, [bp+var_4]
@@ -10777,20 +10777,17 @@ sub_5240	endp
 
 ; Attributes: bp-based frame
 
-; int __stdcall	sub_5296(size_t	size)
-sub_5296	proc near
+; int __stdcall	_malloc_report(size_t size)
+_malloc_report	proc pascal near
+	arg	@@size:word
+	local	@@ret:dword
 
-var_4		= word ptr -4
-var_2		= word ptr -2
-@@size		= word ptr  4
-
-		enter	4, 0
-		push	[bp+@@size]	; size
+		push	@@size
 		call	_malloc
 		pop	cx
-		mov	[bp+var_2], dx
-		mov	[bp+var_4], ax
-		or	ax, [bp+var_2]
+		mov	word ptr @@ret+2, dx
+		mov	word ptr @@ret, ax
+		or	ax, word ptr @@ret+2
 		jnz	short loc_52B6
 		push	ds
 		push	offset aNotEnoughMemor ; "Not enough memory"
@@ -10799,11 +10796,10 @@ var_2		= word ptr -2
 		add	sp, 4
 
 loc_52B6:
-		mov	dx, [bp+var_2]
-		mov	ax, [bp+var_4]
-		leave
-		retn	2
-sub_5296	endp
+		mov	dx, word ptr @@ret+2
+		mov	ax, word ptr @@ret
+		ret
+_malloc_report	endp
 
 
 ; =============== S U B	R O U T	I N E =======================================
@@ -10968,7 +10964,7 @@ arg_2		= word ptr  6
 
 loc_53E8:
 		push	0Eh		; size
-		call	sub_5296
+		call	_malloc_report
 		mov	word ptr [bp+var_4+2], dx
 		mov	word ptr [bp+var_4], ax
 		les	bx, [bp+var_4]
@@ -11753,7 +11749,7 @@ loc_5920:
 		mov	word ptr [bp+var_8], ax
 		push	dx
 		push	ax		; s
-		call	sub_894C
+		call	_strdup_report
 		mov	word ptr [bp+block+2], dx
 		mov	word ptr [bp+block], ax
 		jmp	loc_5AE8
@@ -13743,7 +13739,7 @@ loc_6782:
 		add	dx, ax
 		inc	dx
 		push	dx		; size
-		call	sub_5296
+		call	_malloc_report
 		mov	word ptr [bp+@@dest+2], dx
 		mov	word ptr [bp+@@dest], ax
 		push	word ptr [bp+@@s+2]
@@ -14834,12 +14830,12 @@ loc_6F5A:
 		les	bx, [bp+arg_8]
 		mov	word ptr es:[bx], 1
 		push	201h		; size
-		call	sub_5296
+		call	_malloc_report
 		les	bx, [bp+arg_4]
 		mov	es:[bx+2], dx
 		mov	es:[bx], ax
 		push	201h		; size
-		call	sub_5296
+		call	_malloc_report
 		les	bx, [bp+arg_0]
 		mov	es:[bx+2], dx
 		mov	es:[bx], ax
@@ -15155,12 +15151,12 @@ loc_71DA:
 loc_71E2:
 		push	ds
 		push	offset DGROUP:byte_1385A ; s
-		call	sub_894C
+		call	_strdup_report
 		mov	word ptr [bp+block+2], dx
 		mov	word ptr [bp+block], ax
 		push	ds
 		push	offset DGROUP:byte_1285A ; s
-		call	sub_894C
+		call	_strdup_report
 		mov	[bp+var_A], dx
 		mov	[bp+var_C], ax
 		mov	dx, word ptr off_14066+2
@@ -15785,7 +15781,7 @@ loc_7661:
 		mov	byte ptr es:[bx], 0
 		push	word ptr [bp+@@s+2]
 		push	word ptr [bp+@@s]	; s
-		call	sub_894C
+		call	_strdup_report
 		mov	word ptr [bp+@@s+2], dx
 		mov	word ptr [bp+@@s], ax
 		les	bx, [bp+var_8]
@@ -16059,7 +16055,7 @@ loc_786F:
 		mov	byte ptr es:[bx], 0
 		push	word ptr [bp+@@s+2]
 		push	word ptr [bp+@@s]	; s
-		call	sub_894C
+		call	_strdup_report
 		mov	[bp+arg_2], dx
 		mov	[bp+arg_0], ax
 		mov	ax, word ptr [bp+@@s]
@@ -18523,34 +18519,21 @@ sub_88F1	endp
 
 ; Attributes: bp-based frame
 
-; int __stdcall	sub_894C(char *s)
-sub_894C	proc near
+; int __pascal _strdup_report(char *s)
+_strdup_report	proc pascal near
+	arg	@@s:dword
+	local	@@ret:dword
 
-var_4		= word ptr -4
-var_2		= word ptr -2
-@@s		= dword	ptr  4
-
-		enter	4, 0
-		push	word ptr [bp+@@s+2]
-		push	word ptr [bp+@@s]	; s
-		call	_strlen
-		add	sp, 4
+		call	_strlen c, @@s
 		inc	ax
-		push	ax		; size
-		call	sub_5296
-		mov	[bp+var_2], dx
-		mov	[bp+var_4], ax
-		push	word ptr [bp+@@s+2]
-		push	word ptr [bp+@@s]	; src
-		push	dx
-		push	ax		; dest
-		call	_strcpy
-		add	sp, 8
-		mov	dx, [bp+var_2]
-		mov	ax, [bp+var_4]
-		leave
-		retn	4
-sub_894C	endp
+		call	_malloc_report pascal, ax
+		mov	word ptr @@ret+2, dx
+		mov	word ptr @@ret, ax
+		call	_strcpy c, ax, dx, @@s
+		mov	dx, word ptr @@ret+2
+		mov	ax, word ptr @@ret
+		ret
+_strdup_report	endp
 
 
 ; =============== S U B	R O U T	I N E =======================================
@@ -18856,7 +18839,7 @@ loc_8B4F:
 		call	sub_8E0F
 		add	sp, 4
 		push	53h ; 'S'       ; size
-		call	sub_5296
+		call	_malloc_report
 		mov	word ptr [bp+@@path+2], dx
 		mov	word ptr [bp+@@path], ax
 		push	dx
